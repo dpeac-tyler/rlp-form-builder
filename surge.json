@@ -1,0 +1,7 @@
+{
+  "domain": "rlp-inspections.surge.sh",
+  "basic_auth": {
+    "username": "rlp",
+    "password": "rlp"
+  }
+}
