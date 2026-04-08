@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Questions - RLP</title>
+  <!-- Custom RLP Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <div class="app-container">
+    <div class="header management">
+      <a class="usa-skipnav" href="#main-content">Skip to Main Content</a>
+
+      <header class="usa-header">
+        <div class="skinny-header-container">
+          <div class="grid-container">
+            <div class="welcome-agency usa-banner__header-text">
+              Welcome DNR! &nbsp;<a href="#"><u>Logout</u></a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="border-bottom-2px border-base-lighter">
+        <div class="grid-container navigation">
+          <div class="grid-row">
+            <div class="tablet:grid-col-6 logo-flex">
+              <a class="agency-logo-link" href="index.html">
+                <img src="assets/il-logo.png" alt="Illinois Department of Natural Resources agency logo"
+                  class="agency-logo">
+              </a>
+              <a class="agency-name-link" href="index.html">
+                <div class="agency-name">Illinois Department of Natural Resources</div>
+              </a>
+            </div>
+            <div class="tablet:grid-col-6">
+              <nav class="grid-container">
+                <div class="grid-row header--nav-links">
+                  <div class="tablet:grid-col nav__item">
+                    <a class="usa-link" href="index.html">
+                      <img src="assets/rlp-logo.png" alt="RLP logo" class="margin-right-1" height="30">Home
+                    </a>
+                  </div>
+                  <div class="tablet:grid-col-auto nav__item">
+                    <a class="usa-link" href="search.html">
+                      <svg aria-hidden="true" focusable="false"
+                        class="svg-inline--fa fa-magnifying-glass fa-xl margin-right-1" role="img"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30" height="30">
+                        <path fill="currentColor"
+                          d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
+                        </path>
+                      </svg>Search
+                    </a>
+                  </div>
+                  <div class="tablet:grid-col nav__item">
+                    <a class="usa-link" href="#" target="_blank">
+                      <svg aria-hidden="true" focusable="false" class="svg-inline--fa fa-life-ring fa-xl margin-right-1"
+                        role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="30" height="30">
+                        <path fill="currentColor"
+                          d="M367.2 412.5C335.9 434.9 297.5 448 256 448s-79.9-13.1-111.2-35.5l58-58c15.8 8.6 34 13.5 53.3 13.5s37.4-4.9 53.3-13.5l58 58zm90.7 .8c33.8-43.4 54-98 54-157.3s-20.2-113.9-54-157.3c9-12.5 7.9-30.1-3.4-41.3S425.8 45 413.3 54C369.9 20.2 315.3 0 256 0S142.1 20.2 98.7 54c-12.5-9-30.1-7.9-41.3 3.4S45 86.2 54 98.7C20.2 142.1 0 196.7 0 256s20.2 113.9 54 157.3c-9 12.5-7.9 30.1 3.4 41.3S86.2 467 98.7 458c43.4 33.8 98 54 157.3 54s113.9-20.2 157.3-54c12.5 9 30.1 7.9 41.3-3.4s12.4-28.8 3.4-41.3zm-45.5-46.1l-58-58c8.6-15.8 13.5-34 13.5-53.3s-4.9-37.4-13.5-53.3l58-58C434.9 176.1 448 214.5 448 256s-13.1 79.9-35.5 111.2zM367.2 99.5l-58 58c-15.8-8.6-34-13.5-53.3-13.5s-37.4 4.9-53.3 13.5l-58-58C176.1 77.1 214.5 64 256 64s79.9 13.1 111.2 35.5zM157.5 309.3l-58 58C77.1 335.9 64 297.5 64 256s13.1-79.9 35.5-111.2l58 58c-8.6 15.8-13.5 34-13.5 53.3s4.9 37.4 13.5 53.3zM208 256a48 48 0 1 1 96 0 48 48 0 1 1 -96 0z">
+                        </path>
+                      </svg>Help
+                    </a>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main id="main-content" class="grid-container">
+      <div class="usa-step-indicator margin-top-4" aria-label="progress">
+        <ol class="usa-step-indicator__segments">
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Application Details</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Applicant Information</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
+            <span class="usa-step-indicator__segment-label">Question Builder</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Conditions</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Payment</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Preview</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">License</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Notification</span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="usa-step-indicator__header">
+        <h1 class="usa-step-indicator__heading">
+          <span class="usa-step-indicator__heading-counter">3</span>
+          <span class="usa-step-indicator__total-steps">of 8</span>
+          <span class="usa-step-indicator__heading-text">Question Builder</span>
+        </h1>
+      </div>
+
+      <div class="margin-top-4 app-builder-container">
+        <!-- Left sidebar - Step indicators -->
+        <div class="app-builder-sidebar">
+          <div class="usa-step-indicator usa-step-indicator--sidebar" aria-label="step progress">
+            <ol class="usa-step-indicator__segments">
+              <li class="usa-step-indicator__segment usa-step-indicator__segment--complete" style="cursor: pointer;" onclick="window.location.href='question-builder.html'">
+                <span class="usa-step-indicator__segment-label">Question Builder</span>
+              </li>
+              <div class="step-connector-line"></div>
+              <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
+                <span class="usa-step-indicator__segment-label">Create Questions</span>
+              </li>
+              <div class="step-connector-line"></div>
+              <li class="usa-step-indicator__segment">
+                <span class="usa-step-indicator__segment-label">Review Questions</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Right content area -->
+        <div class="app-builder-content" id="mainBuilderContent">
+          <h1 class="app-builder-content__heading">Create Questions</h1>
+
+          <!-- Content will be added here -->
+          <p>Use the question builder below to create your questions. Choose the type(s) of questions you want to
+            include on your application and then provide the additional information that is necessary for each question.
+            Keep repeating the process until you have created all the necessary questions.</p>
+          <p>For each question, you have the following options:</p>
+          <p>Check “Required” if the user must answer the question. Table and Addresses/Repeatable Fields have different
+            settings to address “Required”</p>
+          <p>Check “Instructions” if you want to include more information that may be helpful for the user.</p>
+          <p><i>Required</i> - indicates a required field.</p>
+
+          <div class="section-indicator" data-section="3">
+            <fieldset class="usa-fieldset">
+              <legend class="usa-legend">Question Type</legend>
+              <label class="usa-label" for="questionType">Question Type</label>
+              <select class="usa-select" id="questionType" name="Question Type">
+                <option value="">Please Select</option>
+                <optgroup label="Question Type">
+                  <option value="Acknowledgment">Acknowledgment</option>
+                  <option value="Addresses / Repeatable Fields">Addresses / Repeatable Fields</option>
+                  <option value="Date / Date Range">Date / Date Range</option>
+                  <option value="Free Form">Free Form</option>
+                  <option value="Multiple Choice">Multiple Choice</option>
+                  <option value="Multi-Select">Multi-Select</option>
+                  <option value="Table">Table</option>
+                  <option value="Table (Row Labels)">Table (Row Labels)</option>
+                  <option value="Yes/No; Either/Or">Yes/No; Either/Or</option>
+                </optgroup>
+                <optgroup label="Form Builder">
+                  <option value="Form Builder">Form Builder</option>
+                </optgroup>  
+              </select>
+
+              <div id="formBuilderSection" style="display: none; margin-top: 2rem;">
+
+                <!-- Syntax Accordion -->
+                <div class="usa-accordion usa-accordion--bordered" style="margin-bottom: 2rem;">
+                  <h3 class="usa-accordion__heading">
+                    <button
+                      type="button"
+                      class="usa-accordion__button"
+                      aria-expanded="false"
+                      aria-controls="syntax-content"
+                      style="background-color: #fff;"
+                    >
+                      Quick Builder syntax reference
+                    </button>
+                  </h3>
+                  <div id="syntax-content" class="usa-accordion__content" hidden>
+                    <div class="usa-alert usa-alert--info" style="margin-top: 1rem; margin-bottom: 2rem;">
+                      <div class="usa-alert__body">
+                        <p class="usa-alert__text" style="margin: 0; font-size: 1.4rem;">
+                          <strong>Note:</strong> Questions are required by default. Only add <code>n</code> in the y/n field if you want the question to be optional. Empty or <code>y</code> = required.
+                        </p>
+                      </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                      <!-- Column 1 -->
+                      <div>
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Acknowledgement</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">ack | statement | instructions</code>
+                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">Always required - no y/n field needed</p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Addresses / Repeatable Fields</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">addr | question | y/n | repeat(y/n) | instructions</code>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Date / Date Range</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">dt | question | y/n | type(single/range) | instructions</code>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Free Form</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">ff | question | y/n | instructions | format(an/num) | length(s/m/l/xl)</code>
+                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">Length: s(70), m(300), l(1000), xl(5000), or custom|min|max</p>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Multiple Choice</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">mc | question | y/n | choices(a,b,c,...) | instructions</code>
+                        </div>
+                      </div>
+
+                      <!-- Column 2 -->
+                      <div>
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Multi-Select</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">ms | question | y/n | choices(a,b,c,...) | min/max(x/y) | instructions</code>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Table</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">tbl | question | y/n | columns(a,b,c,...) | rows(n) | instructions</code>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Table (Row Labels)</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">tblr | question | y/n | rows(a,b,c,...) | columns(x,y,...) | instructions</code>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                          <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Yes / No</h4>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">yn | question | y/n | labels(Yes,No) | instructions</code>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <label class="usa-label" for="formBuilderInput">Form Builder input</label>
+                <textarea class="usa-textarea" id="formBuilderInput" name="formBuilderInput" rows="10" placeholder="ff | Legal business name | y | Enter full registered name | an | m" style="font-family: monospace; margin-top: 0.8rem;"></textarea>
+
+                <button type="button" class="usa-button" id="parseButton" style="margin-top: 1rem;">Build Questions</button>
+
+                <!-- Error List -->
+                <div id="errorSection" style="display: none; margin-top: 2rem;">
+                  <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Errors</h3>
+                  <div id="errorList"></div>
+                </div>
+
+                <!-- Preview Section -->
+                <div id="previewSection" style="display: none; margin-top: 2rem;">
+                  <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Built Questions</h3>
+                  <div id="previewList" style="background-color: #fff; padding: 1.6rem; margin-bottom: 1.6rem;">
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Free Form Section -->
+              <div id="freeFormSection" style="display: none; margin-top: 2rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Question Options:</h3>
+
+                <!-- Checkboxes -->
+                <div class="usa-checkbox" style="margin-bottom: 1rem;">
+                  <input class="usa-checkbox__input" id="ffRequired" type="checkbox" name="ffRequired" checked>
+                  <label class="usa-checkbox__label" for="ffRequired">Required</label>
+                </div>
+                <div class="usa-checkbox" style="margin-bottom: 2rem;">
+                  <input class="usa-checkbox__input" id="ffInstructions" type="checkbox" name="ffInstructions">
+                  <label class="usa-checkbox__label" for="ffInstructions">Instructions</label>
+                </div>
+
+                <!-- Question Text -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="ffQuestion">What is your question? <span class="field-required">Required</span></label>
+                  <textarea class="usa-textarea" id="ffQuestion" name="ffQuestion" rows="3" maxlength="300"></textarea>
+                  <div style="text-align: right; font-size: 1.4rem; color: #71767a; margin-top: 0.5rem;">
+                    <span id="ffQuestionCounter">300 of 300 remaining</span>
+                  </div>
+                </div>
+
+                <!-- Format Select -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="ffFormat">Format <span class="field-required">Required</span></label>
+                  <select class="usa-select" id="ffFormat" name="ffFormat">
+                    <option value="">Please Select</option>
+                    <option value="alphanumeric">Alpha/Numeric</option>
+                    <option value="numeric">Numeric</option>
+                  </select>
+                </div>
+
+                <!-- Response Length (shown when format is alphanumeric) -->
+                <div class="usa-form-group" id="ffResponseLengthGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="ffResponseLength">Response Length <span class="field-required">Required</span></label>
+                  <select class="usa-select" id="ffResponseLength" name="ffResponseLength">
+                    <option value="">Please Select</option>
+                    <option value="small">Small (up to 70 characters)</option>
+                    <option value="medium">Medium (up to 300 characters)</option>
+                    <option value="large">Large (up to 1000 characters)</option>
+                    <option value="extralarge">X-Large (up to 5000 characters)</option>
+                    <option value="custom">Custom (user-entered character count)</option>
+                  </select>
+                </div>
+
+                <!-- Custom Length (shown when custom is selected) -->
+                <div id="ffCustomLengthGroup" style="display: none; margin-bottom: 2rem;">
+                  <p style="font-size: 1.6rem; margin-bottom: 1.5rem;">You may enter values between 1 and 5000 in the Min Length and Max Length fields.</p>
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+                    <label class="usa-label" for="ffMinLength">Min Length</label>
+                    <input class="usa-input" id="ffMinLength" name="ffMinLength" type="number" min="1" max="5000">
+                  </div>
+                  <div class="usa-form-group">
+                    <label class="usa-label" for="ffMaxLength">Max Length <span class="field-required">Required</span></label>
+                    <input class="usa-input" id="ffMaxLength" name="ffMaxLength" type="number" min="1" max="5000">
+                  </div>
+                </div>
+
+                <!-- Format Options (shown when format is numeric) -->
+                <div class="usa-form-group" id="ffFormatOptionsGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="ffFormatOptions">Format Options <span class="field-required">Required</span></label>
+                  <select class="usa-select" id="ffFormatOptions" name="ffFormatOptions">
+                    <option value="">Please Select</option>
+                    <option value="currency">Currency</option>
+                    <option value="decimal">Decimal</option>
+                    <option value="integer">Integer</option>
+                    <option value="percentage">Percentage</option>
+                  </select>
+                </div>
+
+                <!-- Currency Options -->
+                <div id="ffCurrencyGroup" style="display: none; margin-bottom: 2rem;">
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+                    <label class="usa-label" for="ffCurrencyMin">Min Value</label>
+                    <input class="usa-input" id="ffCurrencyMin" name="ffCurrencyMin" type="number" value="0">
+                  </div>
+                  <div class="usa-form-group">
+                    <label class="usa-label" for="ffCurrencyMax">Max Value <span class="field-required">Required</span></label>
+                    <input class="usa-input" id="ffCurrencyMax" name="ffCurrencyMax" type="number" value="5000">
+                  </div>
+                </div>
+
+                <!-- Decimal Options -->
+                <div id="ffDecimalGroup" style="display: none; margin-bottom: 2rem;">
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+                    <label class="usa-label" for="ffDecimalPlaces">Number of Decimal Places <span class="field-required">Required</span></label>
+                    <input class="usa-input" id="ffDecimalPlaces" name="ffDecimalPlaces" type="number" min="0">
+                  </div>
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+                    <label class="usa-label" for="ffDecimalMin">Min Value</label>
+                    <input class="usa-input" id="ffDecimalMin" name="ffDecimalMin" type="number" value="0">
+                  </div>
+                  <div class="usa-form-group">
+                    <label class="usa-label" for="ffDecimalMax">Max Value <span class="field-required">Required</span></label>
+                    <input class="usa-input" id="ffDecimalMax" name="ffDecimalMax" type="number" value="5000">
+                  </div>
+                </div>
+
+                <!-- Integer Options -->
+                <div id="ffIntegerGroup" style="display: none; margin-bottom: 2rem;">
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+                    <label class="usa-label" for="ffIntegerMin">Min Value</label>
+                    <input class="usa-input" id="ffIntegerMin" name="ffIntegerMin" type="number" value="0">
+                  </div>
+                  <div class="usa-form-group">
+                    <label class="usa-label" for="ffIntegerMax">Max Value <span class="field-required">Required</span></label>
+                    <input class="usa-input" id="ffIntegerMax" name="ffIntegerMax" type="number" value="5000">
+                  </div>
+                </div>
+
+                <!-- Percentage Options -->
+                <div id="ffPercentageGroup" style="display: none; margin-bottom: 2rem;">
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+                    <label class="usa-label" for="ffPercentageDecimalPlaces">Number of Decimal Places <span class="field-required">Required</span></label>
+                    <input class="usa-input" id="ffPercentageDecimalPlaces" name="ffPercentageDecimalPlaces" type="number" value="0">
+                  </div>
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+                    <label class="usa-label" for="ffPercentageMin">Min Value</label>
+                    <input class="usa-input" id="ffPercentageMin" name="ffPercentageMin" type="number" value="0">
+                  </div>
+                  <div class="usa-form-group">
+                    <label class="usa-label" for="ffPercentageMax">Max Value <span class="field-required">Required</span></label>
+                    <input class="usa-input" id="ffPercentageMax" name="ffPercentageMax" type="number" value="5000">
+                  </div>
+                </div>
+
+                <!-- Clear Button -->
+                <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                  <button type="button" class="usa-button usa-button--accent-cool" id="clearFreeFormButton">Clear</button>
+                </div>
+              </div>
+
+            </fieldset>
+          </div>
+
+
+          <div class="app-builder-button-container" style="justify-content: flex-end;">
+            <button type="button" class="usa-button usa-button--outline" style="margin-left: 10px;" id="mainPreviewButton">Preview</button>
+            <button type="button" class="usa-button" id="saveButton">Save</button>
+          </div>
+        </div>
+
+        <!-- Preview Page Content (hidden by default) -->
+        <div class="app-builder-content" id="previewPageContent" style="display: none;">
+          <h1 class="page-title page-title--underlined" style="font-size: 3rem; font-weight: 700; margin: 0 0 1rem 0; padding-bottom: 1rem;">Illinois Department of Natural Resources</h1>
+          <h2 style="font-size: 2.4rem; font-weight: 400; margin: 0 0 1.5rem 0;">Individual Original One Application - 0311</h2>
+          <p style="font-size: 1.6rem; margin-bottom: 2rem;"><strong>NOTE:</strong> The application is non-functioning. This is just a preview of your application specifics.</p>
+
+          <!-- Preview Questions Container -->
+          <div id="previewPageQuestions"></div>
+
+          <div class="app-builder-button-container" style="justify-content: flex-end;">
+            <button type="button" class="usa-button" id="closePreviewButton">Close</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Success Notification -->
+  <div id="successNotification" class="notification">
+    <div class="notification-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <div class="notification-text" id="notificationText"></div>
+  </div>
+
+  <script>
+    // Quick Builder Parser Implementation
+
+    // Store parsed questions globally
+    let parsedQuestions = [];
+    let isEditMode = false;
+    let editQuestionIndex = null;
+
+    // Check if we're in edit mode
+    window.addEventListener('DOMContentLoaded', function() {
+      const editQuestionData = sessionStorage.getItem('editQuestionData');
+      const editIndex = sessionStorage.getItem('editQuestionIndex');
+
+      if (editQuestionData && editIndex !== null) {
+        isEditMode = true;
+        editQuestionIndex = parseInt(editIndex);
+        const questionData = JSON.parse(editQuestionData);
+
+        // Clear the edit data from session storage
+        sessionStorage.removeItem('editQuestionData');
+        sessionStorage.removeItem('editQuestionIndex');
+
+        // Pre-populate the Free Form section
+        if (questionData.questionType === 'ff') {
+          populateFreeFormForEdit(questionData);
+        }
+      }
+    });
+
+    function populateFreeFormForEdit(questionData) {
+      // Set question type to Free Form
+      document.getElementById('questionType').value = 'Free Form';
+
+      // Show Free Form section
+      document.getElementById('freeFormSection').style.display = 'block';
+
+      // Populate basic fields
+      document.getElementById('ffQuestion').value = questionData.question || '';
+      document.getElementById('ffQuestionCounter').textContent = (300 - questionData.question.length) + ' of 300 remaining';
+      document.getElementById('ffRequired').checked = questionData.required === 'y';
+      document.getElementById('ffInstructions').checked = questionData.instructions === 'y';
+
+      // Set format
+      const format = questionData.format === 'an' ? 'alphanumeric' : 'numeric';
+      document.getElementById('ffFormat').value = format;
+
+      // Handle alphanumeric format
+      if (format === 'alphanumeric') {
+        document.getElementById('ffResponseLengthGroup').style.display = 'block';
+        document.getElementById('ffResponseLength').value = questionData.length || '';
+
+        if (questionData.length === 'custom') {
+          document.getElementById('ffCustomLengthGroup').style.display = 'block';
+          document.getElementById('ffMinLength').value = questionData.minLength || '';
+          document.getElementById('ffMaxLength').value = questionData.maxLength || '';
+        }
+      }
+
+      // Handle numeric format
+      if (format === 'numeric') {
+        document.getElementById('ffFormatOptionsGroup').style.display = 'block';
+        document.getElementById('ffFormatOptions').value = questionData.numericFormat || '';
+
+        if (questionData.numericFormat === 'currency') {
+          document.getElementById('ffCurrencyGroup').style.display = 'block';
+          document.getElementById('ffCurrencyMin').value = questionData.minValue || '0';
+          document.getElementById('ffCurrencyMax').value = questionData.maxValue || '5000';
+        } else if (questionData.numericFormat === 'decimal') {
+          document.getElementById('ffDecimalGroup').style.display = 'block';
+          document.getElementById('ffDecimalPlaces').value = questionData.decimalPlaces || '';
+          document.getElementById('ffDecimalMin').value = questionData.minValue || '0';
+          document.getElementById('ffDecimalMax').value = questionData.maxValue || '5000';
+        } else if (questionData.numericFormat === 'integer') {
+          document.getElementById('ffIntegerGroup').style.display = 'block';
+          document.getElementById('ffIntegerMin').value = questionData.minValue || '0';
+          document.getElementById('ffIntegerMax').value = questionData.maxValue || '5000';
+        } else if (questionData.numericFormat === 'percentage') {
+          document.getElementById('ffPercentageGroup').style.display = 'block';
+          document.getElementById('ffPercentageDecimalPlaces').value = questionData.decimalPlaces || '0';
+          document.getElementById('ffPercentageMin').value = questionData.minValue || '0';
+          document.getElementById('ffPercentageMax').value = questionData.maxValue || '5000';
+        }
+      }
+    }
+
+    // Show/hide sections based on dropdown selection
+    document.getElementById('questionType').addEventListener('change', function() {
+      const formBuilderSection = document.getElementById('formBuilderSection');
+      const freeFormSection = document.getElementById('freeFormSection');
+
+      // Hide all sections first
+      formBuilderSection.style.display = 'none';
+      freeFormSection.style.display = 'none';
+
+      // Show the appropriate section
+      if (this.value === 'Form Builder') {
+        formBuilderSection.style.display = 'block';
+      } else if (this.value === 'Free Form') {
+        freeFormSection.style.display = 'block';
+      }
+    });
+
+    // Accordion toggle functionality
+    document.querySelectorAll('.usa-accordion__button').forEach(button => {
+      button.addEventListener('click', function() {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        const content = document.getElementById(this.getAttribute('aria-controls'));
+
+        this.setAttribute('aria-expanded', !expanded);
+        content.hidden = expanded;
+      });
+    });
+
+    // Free Form Question Builder functionality
+
+    // Character counter for question field
+    const ffQuestionField = document.getElementById('ffQuestion');
+    const ffQuestionCounter = document.getElementById('ffQuestionCounter');
+
+    ffQuestionField.addEventListener('input', function() {
+      const remaining = 300 - this.value.length;
+      ffQuestionCounter.textContent = `${remaining} of 300 remaining`;
+    });
+
+    // Show/hide Response Length or Format Options based on Format selection
+    document.getElementById('ffFormat').addEventListener('change', function() {
+      const responseLengthGroup = document.getElementById('ffResponseLengthGroup');
+      const formatOptionsGroup = document.getElementById('ffFormatOptionsGroup');
+
+      // Hide all option groups first
+      responseLengthGroup.style.display = 'none';
+      formatOptionsGroup.style.display = 'none';
+      document.getElementById('ffCustomLengthGroup').style.display = 'none';
+      document.getElementById('ffCurrencyGroup').style.display = 'none';
+      document.getElementById('ffDecimalGroup').style.display = 'none';
+      document.getElementById('ffIntegerGroup').style.display = 'none';
+      document.getElementById('ffPercentageGroup').style.display = 'none';
+
+      if (this.value === 'alphanumeric') {
+        responseLengthGroup.style.display = 'block';
+      } else if (this.value === 'numeric') {
+        formatOptionsGroup.style.display = 'block';
+      }
+
+      // Reset dependent fields
+      document.getElementById('ffResponseLength').value = '';
+      document.getElementById('ffFormatOptions').value = '';
+    });
+
+    // Show/hide Custom Length based on Response Length selection
+    document.getElementById('ffResponseLength').addEventListener('change', function() {
+      const customLengthGroup = document.getElementById('ffCustomLengthGroup');
+
+      if (this.value === 'custom') {
+        customLengthGroup.style.display = 'block';
+      } else {
+        customLengthGroup.style.display = 'none';
+        // Reset custom fields
+        document.getElementById('ffMinLength').value = '';
+        document.getElementById('ffMaxLength').value = '';
+      }
+    });
+
+    // Show/hide numeric format options based on Format Options selection
+    document.getElementById('ffFormatOptions').addEventListener('change', function() {
+      const currencyGroup = document.getElementById('ffCurrencyGroup');
+      const decimalGroup = document.getElementById('ffDecimalGroup');
+      const integerGroup = document.getElementById('ffIntegerGroup');
+      const percentageGroup = document.getElementById('ffPercentageGroup');
+
+      // Hide all groups first
+      currencyGroup.style.display = 'none';
+      decimalGroup.style.display = 'none';
+      integerGroup.style.display = 'none';
+      percentageGroup.style.display = 'none';
+
+      // Show the appropriate group
+      if (this.value === 'currency') {
+        currencyGroup.style.display = 'block';
+      } else if (this.value === 'decimal') {
+        decimalGroup.style.display = 'block';
+      } else if (this.value === 'integer') {
+        integerGroup.style.display = 'block';
+      } else if (this.value === 'percentage') {
+        percentageGroup.style.display = 'block';
+      }
+    });
+
+    // Clear Free Form button handler
+    document.getElementById('clearFreeFormButton').addEventListener('click', function() {
+      // Reset all free form fields
+      document.getElementById('ffQuestion').value = '';
+      document.getElementById('ffQuestionCounter').textContent = '300 of 300 remaining';
+      document.getElementById('ffRequired').checked = true;
+      document.getElementById('ffInstructions').checked = false;
+      document.getElementById('ffFormat').value = '';
+      document.getElementById('ffResponseLengthGroup').style.display = 'none';
+      document.getElementById('ffResponseLength').value = '';
+      document.getElementById('ffCustomLengthGroup').style.display = 'none';
+      document.getElementById('ffMinLength').value = '';
+      document.getElementById('ffMaxLength').value = '';
+      document.getElementById('ffFormatOptionsGroup').style.display = 'none';
+      document.getElementById('ffFormatOptions').value = '';
+      document.getElementById('ffCurrencyGroup').style.display = 'none';
+      document.getElementById('ffCurrencyMin').value = '0';
+      document.getElementById('ffCurrencyMax').value = '5000';
+      document.getElementById('ffDecimalGroup').style.display = 'none';
+      document.getElementById('ffDecimalPlaces').value = '';
+      document.getElementById('ffDecimalMin').value = '0';
+      document.getElementById('ffDecimalMax').value = '5000';
+      document.getElementById('ffIntegerGroup').style.display = 'none';
+      document.getElementById('ffIntegerMin').value = '0';
+      document.getElementById('ffIntegerMax').value = '5000';
+      document.getElementById('ffPercentageGroup').style.display = 'none';
+      document.getElementById('ffPercentageDecimalPlaces').value = '0';
+      document.getElementById('ffPercentageMin').value = '0';
+      document.getElementById('ffPercentageMax').value = '5000';
+
+      // Reset edit mode flags
+      isEditMode = false;
+      editQuestionIndex = null;
+
+      // Reset to Question Type dropdown
+      document.getElementById('questionType').value = '';
+      document.getElementById('freeFormSection').style.display = 'none';
+    });
+
+    // Function to validate and build free form question
+    function buildFreeFormQuestion() {
+      // Validate required fields
+      const question = document.getElementById('ffQuestion').value.trim();
+      const format = document.getElementById('ffFormat').value;
+
+      if (!question) {
+        alert('Please enter a question.');
+        return null;
+      }
+
+      if (!format) {
+        alert('Please select a format.');
+        return null;
+      }
+
+      // Build question object
+      const questionObj = {
+        type: 'question',
+        questionType: 'ff',
+        question: question,
+        required: document.getElementById('ffRequired').checked ? 'y' : 'n',
+        instructions: document.getElementById('ffInstructions').checked ? 'y' : '',
+        format: format === 'alphanumeric' ? 'an' : 'num'
+      };
+
+      // Handle alphanumeric format
+      if (format === 'alphanumeric') {
+        const responseLength = document.getElementById('ffResponseLength').value;
+
+        if (!responseLength) {
+          alert('Please select a response length.');
+          return null;
+        }
+
+        questionObj.length = responseLength;
+
+        if (responseLength === 'custom') {
+          const maxLength = document.getElementById('ffMaxLength').value;
+          if (!maxLength) {
+            alert('Please enter a max length.');
+            return null;
+          }
+          questionObj.minLength = document.getElementById('ffMinLength').value || '';
+          questionObj.maxLength = maxLength;
+        }
+      }
+
+      // Handle numeric format
+      if (format === 'numeric') {
+        const formatOptions = document.getElementById('ffFormatOptions').value;
+
+        if (!formatOptions) {
+          alert('Please select format options.');
+          return null;
+        }
+
+        questionObj.numericFormat = formatOptions;
+
+        if (formatOptions === 'currency') {
+          const maxValue = document.getElementById('ffCurrencyMax').value;
+          if (!maxValue) {
+            alert('Please enter a max value.');
+            return null;
+          }
+          questionObj.minValue = document.getElementById('ffCurrencyMin').value || '0';
+          questionObj.maxValue = maxValue;
+        } else if (formatOptions === 'decimal') {
+          const decimalPlaces = document.getElementById('ffDecimalPlaces').value;
+          const maxValue = document.getElementById('ffDecimalMax').value;
+          if (!decimalPlaces && decimalPlaces !== '0') {
+            alert('Please enter number of decimal places.');
+            return null;
+          }
+          if (!maxValue) {
+            alert('Please enter a max value.');
+            return null;
+          }
+          questionObj.decimalPlaces = decimalPlaces;
+          questionObj.minValue = document.getElementById('ffDecimalMin').value || '0';
+          questionObj.maxValue = maxValue;
+        } else if (formatOptions === 'integer') {
+          const maxValue = document.getElementById('ffIntegerMax').value;
+          if (!maxValue) {
+            alert('Please enter a max value.');
+            return null;
+          }
+          questionObj.minValue = document.getElementById('ffIntegerMin').value || '0';
+          questionObj.maxValue = maxValue;
+        } else if (formatOptions === 'percentage') {
+          const decimalPlaces = document.getElementById('ffPercentageDecimalPlaces').value;
+          const maxValue = document.getElementById('ffPercentageMax').value;
+          if (!decimalPlaces && decimalPlaces !== '0') {
+            alert('Please enter number of decimal places.');
+            return null;
+          }
+          if (!maxValue) {
+            alert('Please enter a max value.');
+            return null;
+          }
+          questionObj.decimalPlaces = decimalPlaces;
+          questionObj.minValue = document.getElementById('ffPercentageMin').value || '0';
+          questionObj.maxValue = maxValue;
+        }
+      }
+
+      return questionObj;
+    }
+
+    // Parse button click handler
+    document.getElementById('parseButton').addEventListener('click', function() {
+      const input = document.getElementById('formBuilderInput').value;
+      const result = parseQuickBuilderInput(input);
+
+      parsedQuestions = result.parsed;
+
+      // Show success notification if there are valid questions
+      if (result.parsed.length > 0) {
+        showSuccessNotification(result.parsed.length, result.errors.length);
+      }
+
+      displayErrors(result.errors);
+      displayPreview(result.parsed);
+    });
+
+    // Save button click handler
+    document.getElementById('saveButton').addEventListener('click', function() {
+      console.log('Save clicked. parsedQuestions:', parsedQuestions);
+
+      // Check if user is building a Free Form question
+      const freeFormSection = document.getElementById('freeFormSection');
+      const questionType = document.getElementById('questionType').value;
+
+      if (questionType === 'Free Form' && freeFormSection.style.display !== 'none') {
+        // Try to build the free form question
+        const ffQuestion = buildFreeFormQuestion();
+        if (!ffQuestion) {
+          // Validation failed, buildFreeFormQuestion already showed an alert
+          return;
+        }
+
+        // If in edit mode, update the existing question
+        if (isEditMode && editQuestionIndex !== null) {
+          // Load existing questions from storage
+          const storedQuestions = sessionStorage.getItem('reviewQuestions') || localStorage.getItem('reviewQuestions');
+          if (storedQuestions) {
+            parsedQuestions = JSON.parse(storedQuestions);
+          }
+          // Update the question at the edit index
+          parsedQuestions[editQuestionIndex] = ffQuestion;
+
+          // Store and set notification flag for edit
+          const questionsData = JSON.stringify(parsedQuestions);
+          localStorage.setItem('reviewQuestions', questionsData);
+          sessionStorage.setItem('reviewQuestions', questionsData);
+          sessionStorage.setItem('showQuestionEditedNotification', 'true');
+
+          // Navigate back to review questions
+          setTimeout(function() {
+            window.location.href = 'review-questions.html';
+          }, 100);
+          return;
+        } else {
+          // Add the question to the array
+          parsedQuestions.push(ffQuestion);
+        }
+      } else if (questionType === 'Form Builder') {
+        // Form Builder requires Build Questions to be clicked first
+        if (parsedQuestions.length === 0) {
+          alert('Please build questions before saving. Click "Build Questions" first.');
+          return;
+        }
+      }
+
+      // Check if there are any questions to save
+      if (parsedQuestions.length === 0) {
+        alert('Please add at least one question before saving.');
+        return;
+      }
+
+      // Store questions in both localStorage and sessionStorage for reliability
+      const questionsData = JSON.stringify(parsedQuestions);
+      localStorage.setItem('reviewQuestions', questionsData);
+      sessionStorage.setItem('reviewQuestions', questionsData);
+      console.log('Saved to storage:', parsedQuestions);
+
+      // Set flag to show success notification on review-questions page
+      sessionStorage.setItem('showQuestionCreatedNotification', 'true');
+
+      // Small delay to ensure storage completes, then navigate
+      setTimeout(function() {
+        window.location.href = 'review-questions.html';
+      }, 100);
+    });
+
+    // Main preview button
+    document.getElementById('mainPreviewButton').addEventListener('click', function() {
+      showPreviewPage(parsedQuestions);
+    });
+
+    // Close preview button
+    document.getElementById('closePreviewButton').addEventListener('click', function() {
+      hidePreviewPage();
+    });
+
+    /**
+     * Parse the Quick Builder input
+     */
+    function parseQuickBuilderInput(input) {
+      const lines = input.split(/\r?\n/);
+      const parsed = [];
+      const errors = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        const rowNumber = i + 1;
+        const rawLine = lines[i].trim();
+
+        if (!rawLine) continue; // Ignore blank lines
+
+        const result = parseFFLine(rawLine, rowNumber);
+
+        if (result.ok) {
+          parsed.push(result.data);
+        } else {
+          errors.push(result.error);
+        }
+      }
+
+      return { parsed, errors };
+    }
+
+    /**
+     * Parse a single Free Form line
+     */
+    function parseFFLine(line, rowNumber) {
+      const tokens = line.split("|").map(t => t.trim());
+
+      // Check for too many fields
+      if (tokens.length > 6) {
+        return fail(rowNumber, "Too many fields for ff. Expected 6 or fewer.");
+      }
+
+      // Validate type
+      const type = (tokens[0] || "").toLowerCase();
+      if (type !== "ff") {
+        return fail(rowNumber, `Unknown type "${tokens[0]}". This builder currently supports only ff.`);
+      }
+
+      // Validate question text
+      const question = tokens[1] || "";
+      if (!question) {
+        return fail(rowNumber, "Question text is required for ff.");
+      }
+
+      // Validate and normalize required field (defaults to required/y)
+      const requiredRaw = (tokens[2] || "y").toLowerCase();
+      let required;
+      if (requiredRaw === "n" || requiredRaw === "no") {
+        required = "n";
+      } else if (requiredRaw === "y" || requiredRaw === "yes" || requiredRaw === "") {
+        required = "y";
+      } else {
+        return fail(rowNumber, "Required must be y or n.");
+      }
+
+      // Instructions (optional, default to empty string)
+      const instructions = tokens[3] || "";
+
+      // Validate format
+      const format = (tokens[4] || "an").toLowerCase();
+      if (!["an", "num"].includes(format)) {
+        return fail(rowNumber, "Format must be an or num.");
+      }
+
+      // Validate length (including custom)
+      const lengthRaw = tokens[5] || "m";
+      let length = lengthRaw.toLowerCase();
+      let minLength = null;
+      let maxLength = null;
+
+      // Check if it's a custom length format: custom|min|max
+      if (length.startsWith("custom|")) {
+        const customParts = length.split("|");
+        if (customParts.length !== 3) {
+          return fail(rowNumber, "Custom length must be in format: custom|min|max (e.g., custom|10|500).");
+        }
+
+        minLength = parseInt(customParts[1], 10);
+        maxLength = parseInt(customParts[2], 10);
+
+        if (isNaN(minLength) || isNaN(maxLength)) {
+          return fail(rowNumber, "Custom length min and max must be valid numbers.");
+        }
+
+        if (minLength < 0 || maxLength < 0) {
+          return fail(rowNumber, "Custom length min and max must be positive numbers.");
+        }
+
+        if (minLength > maxLength) {
+          return fail(rowNumber, "Custom length min cannot be greater than max.");
+        }
+
+        length = "custom";
+      } else if (!["s", "m", "l", "xl"].includes(length)) {
+        return fail(rowNumber, "Length must be s, m, l, xl, or custom|min|max.");
+      }
+
+      return {
+        ok: true,
+        data: {
+          type: "ff",
+          question,
+          required,
+          instructions,
+          format,
+          length,
+          minLength,
+          maxLength,
+          rowNumber
+        }
+      };
+    }
+
+    /**
+     * Create error result
+     */
+    function fail(rowNumber, message) {
+      return {
+        ok: false,
+        error: `Row ${rowNumber}: ${message}`,
+        rowNumber
+      };
+    }
+
+    /**
+     * Show success notification with fly-in animation
+     */
+    function showSuccessNotification(parsedCount, errorCount) {
+      const notification = document.getElementById('successNotification');
+      const notificationText = document.getElementById('notificationText');
+
+      let message = `${parsedCount} question${parsedCount !== 1 ? 's' : ''} built successfully!`;
+      if (errorCount > 0) {
+        message += ` ${errorCount} error${errorCount !== 1 ? 's' : ''} found below.`;
+      }
+
+      notificationText.textContent = message;
+
+      // Show notification
+      notification.classList.add('show');
+
+      // Hide after 4 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+        notification.classList.add('hide');
+
+        // Reset after animation completes
+        setTimeout(() => {
+          notification.classList.remove('hide');
+        }, 400);
+      }, 4000);
+    }
+
+    /**
+     * Display validation errors as individual alert boxes
+     */
+    function displayErrors(errors) {
+      const errorSection = document.getElementById('errorSection');
+      const errorList = document.getElementById('errorList');
+
+      if (errors.length === 0) {
+        errorSection.style.display = 'none';
+        return;
+      }
+
+      errorSection.style.display = 'block';
+      errorList.innerHTML = errors.map(error => `
+        <div class="usa-alert usa-alert--error" style="margin-bottom: 1rem;">
+          <div class="usa-alert__body">
+            <p class="usa-alert__text" style="margin: 0;">${escapeHtml(error)}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /**
+     * Display preview of parsed questions as rendered form fields
+     */
+    function displayPreview(questions) {
+      const previewSection = document.getElementById('previewSection');
+      const previewList = document.getElementById('previewList');
+
+      if (questions.length === 0) {
+        previewSection.style.display = 'none';
+        return;
+      }
+
+      previewSection.style.display = 'block';
+
+      previewList.innerHTML = questions.map((q, index) => {
+        return renderFormField(q, index);
+      }).join('');
+    }
+
+    /**
+     * Render a form field based on parsed question data
+     */
+    function renderFormField(q, index, bordered = false) {
+      const isRequired = q.required === 'y';
+      const isTextarea = q.length === 'xl' || q.length === 'custom';
+      const inputType = q.format === 'num' ? 'number' : 'text';
+
+      // Get max length based on size
+      const maxLengthMap = {
+        's': 70,      // Small
+        'm': 300,     // Medium
+        'l': 1000,    // Large
+        'xl': 5000    // X-Large
+      };
+
+      let minLength = 0;
+      let maxLength;
+
+      if (q.length === 'custom') {
+        minLength = q.minLength || 0;
+        maxLength = q.maxLength || 1000;
+      } else {
+        maxLength = maxLengthMap[q.length] || 300;
+      }
+
+      // Build the form field HTML with optional border for preview
+      const borderStyle = bordered ? 'border: 1px solid #dfe1e2; border-radius: 0.5rem; padding: 2rem;' : 'padding: 1rem;';
+      let fieldHtml = `
+        <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
+      `;
+
+      // Add instructions if present (ABOVE the question label)
+      if (q.instructions) {
+        fieldHtml += `
+          <div style="margin-bottom: 1.6rem;">
+            <p style="margin: 0 0 0.4rem 0; font-weight: 700; font-size: 1.6rem;">Instructions</p>
+            <p style="margin: 0; font-size: 1.6rem; color: #71767a;">${escapeHtml(q.instructions)}</p>
+          </div>
+        `;
+      }
+
+      // Add the question label
+      fieldHtml += `
+          <label class="usa-label" for="preview-field-${index}">
+            ${escapeHtml(q.question)}
+            ${isRequired ? '<span class="field-required">Required</span>' : ''}
+          </label>
+      `;
+
+      // Add the input field with character counter
+      const uniqueId = `preview-field-${index}`;
+      const counterId = `counter-${index}`;
+
+      if (isTextarea) {
+        fieldHtml += `
+          <textarea
+            class="usa-textarea"
+            id="${uniqueId}"
+            name="${uniqueId}"
+            minlength="${minLength}"
+            maxlength="${maxLength}"
+            rows="6"
+            ${isRequired ? 'required' : ''}
+            oninput="updateCharCounter('${uniqueId}', '${counterId}', ${maxLength})"
+          ></textarea>
+          <div id="${counterId}" class="character-counter">${maxLength} of ${maxLength} remaining</div>
+        `;
+      } else {
+        fieldHtml += `
+          <input
+            class="usa-input"
+            id="${uniqueId}"
+            name="${uniqueId}"
+            type="${inputType}"
+            minlength="${minLength}"
+            maxlength="${maxLength}"
+            ${isRequired ? 'required' : ''}
+            oninput="updateCharCounter('${uniqueId}', '${counterId}', ${maxLength})"
+          />
+          <div id="${counterId}" class="character-counter">${maxLength} of ${maxLength} remaining</div>
+        `;
+      }
+
+      fieldHtml += `</div>`;
+
+      return fieldHtml;
+    }
+
+    /**
+     * Update character counter as user types
+     */
+    function updateCharCounter(fieldId, counterId, maxLength) {
+      const field = document.getElementById(fieldId);
+      const counter = document.getElementById(counterId);
+      if (field && counter) {
+        const remaining = maxLength - field.value.length;
+        counter.textContent = `${remaining} of ${maxLength} remaining`;
+      }
+    }
+
+    /**
+     * Show preview page with questions in bordered format
+     */
+    function showPreviewPage(questions) {
+      if (questions.length === 0) {
+        alert('No questions to preview. Please build or import questions first.');
+        return;
+      }
+
+      const mainContent = document.getElementById('mainBuilderContent');
+      const previewContent = document.getElementById('previewPageContent');
+      const previewQuestionsContainer = document.getElementById('previewPageQuestions');
+
+      // Render all questions inside one bordered container
+      const questionsHtml = questions.map((q, index) =>
+        renderFormField(q, `preview-${index}`, false)
+      ).join('');
+
+      previewQuestionsContainer.innerHTML = `
+        <div style="border: 1px solid #dfe1e2; border-radius: 0.5rem; padding: 2rem; background-color: #fff;">
+          ${questionsHtml}
+        </div>
+      `;
+
+      // Hide main content, show preview
+      mainContent.style.display = 'none';
+      previewContent.style.display = 'block';
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    /**
+     * Hide preview page and return to builder
+     */
+    function hidePreviewPage() {
+      const mainContent = document.getElementById('mainBuilderContent');
+      const previewContent = document.getElementById('previewPageContent');
+
+      mainContent.style.display = 'block';
+      previewContent.style.display = 'none';
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+
+    /**
+     * Escape HTML to prevent XSS
+     */
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+
+</html>
