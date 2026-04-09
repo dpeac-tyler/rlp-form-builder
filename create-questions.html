@@ -206,7 +206,8 @@
 
                         <div style="margin-bottom: 2rem;">
                           <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Date / Date Range</h4>
-                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">dt | question | y/n | type(single/range) | instructions</code>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">dt | question | y/n | range(y/n) | instructions</code>
+                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">Range: y = date range (start/end), n = single date (default)</p>
                         </div>
 
                         <div style="margin-bottom: 2rem;">
@@ -394,9 +395,184 @@
                   </div>
                 </div>
 
+                <!-- Instructions Text (shown when Instructions checkbox is checked) -->
+                <div id="ffInstructionsGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="ffInstructionsText">Instructions <span class="field-required">Required</span></label>
+                  <div class="mock-editor">
+                    <div class="mock-editor__toolbar">
+                      <button type="button" class="mock-editor__btn" title="Bold"><strong>B</strong></button>
+                      <button type="button" class="mock-editor__btn" title="Italic"><em>I</em></button>
+                      <button type="button" class="mock-editor__btn" title="Underline"><u>U</u></button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Numbered List">1.</button>
+                      <button type="button" class="mock-editor__btn" title="Bullet List">•</button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Link">🔗</button>
+                    </div>
+                    <textarea class="mock-editor__textarea" id="ffInstructionsText" name="ffInstructionsText" rows="6" maxlength="3000"></textarea>
+                  </div>
+                </div>
+
                 <!-- Clear Button -->
                 <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
                   <button type="button" class="usa-button usa-button--accent-cool" id="clearFreeFormButton">Clear</button>
+                </div>
+              </div>
+
+              <!-- Yes/No Section -->
+              <div id="yesNoSection" style="display: none; margin-top: 2rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Question Options:</h3>
+
+                <!-- Checkboxes -->
+                <div class="usa-checkbox" style="margin-bottom: 1rem;">
+                  <input class="usa-checkbox__input" id="ynRequired" type="checkbox" name="ynRequired" checked>
+                  <label class="usa-checkbox__label" for="ynRequired">Required</label>
+                </div>
+                <div class="usa-checkbox" style="margin-bottom: 2rem;">
+                  <input class="usa-checkbox__input" id="ynInstructions" type="checkbox" name="ynInstructions">
+                  <label class="usa-checkbox__label" for="ynInstructions">Instructions</label>
+                </div>
+
+                <!-- Question Text -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="ynQuestion">What is your question? <span class="field-required">Required</span></label>
+                  <textarea class="usa-textarea" id="ynQuestion" name="ynQuestion" rows="3" maxlength="500"></textarea>
+                  <div style="text-align: right; font-size: 1.4rem; color: #71767a; margin-top: 0.5rem;">
+                    <span id="ynQuestionCounter">500 of 500 remaining</span>
+                  </div>
+                </div>
+
+                <!-- Choice 1 -->
+                <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+                  <label class="usa-label" for="ynChoice1">Choice 1 <span class="field-required">Required</span></label>
+                  <input class="usa-input" id="ynChoice1" name="ynChoice1" type="text">
+                </div>
+
+                <!-- Choice 2 -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="ynChoice2">Choice 2 <span class="field-required">Required</span></label>
+                  <input class="usa-input" id="ynChoice2" name="ynChoice2" type="text">
+                </div>
+
+                <!-- Instructions Text (shown when Instructions checkbox is checked) -->
+                <div id="ynInstructionsGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="ynInstructionsText">Instructions <span class="field-required">Required</span></label>
+                  <div class="mock-editor">
+                    <div class="mock-editor__toolbar">
+                      <button type="button" class="mock-editor__btn" title="Bold"><strong>B</strong></button>
+                      <button type="button" class="mock-editor__btn" title="Italic"><em>I</em></button>
+                      <button type="button" class="mock-editor__btn" title="Underline"><u>U</u></button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Numbered List">1.</button>
+                      <button type="button" class="mock-editor__btn" title="Bullet List">•</button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Link">🔗</button>
+                    </div>
+                    <textarea class="mock-editor__textarea" id="ynInstructionsText" name="ynInstructionsText" rows="6" maxlength="3000"></textarea>
+                  </div>
+                </div>
+
+                <!-- Clear Button -->
+                <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                  <button type="button" class="usa-button usa-button--accent-cool" id="clearYesNoButton">Clear</button>
+                </div>
+              </div>
+
+              <!-- Acknowledgement Section -->
+              <div id="acknowledgementSection" style="display: none; margin-top: 2rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Question Options:</h3>
+
+                <!-- Checkboxes -->
+                <div class="usa-checkbox" style="margin-bottom: 1rem;">
+                  <input class="usa-checkbox__input" id="ackRequired" type="checkbox" name="ackRequired" checked disabled>
+                  <label class="usa-checkbox__label" for="ackRequired">Required</label>
+                </div>
+                <div class="usa-checkbox" style="margin-bottom: 2rem;">
+                  <input class="usa-checkbox__input" id="ackInstructions" type="checkbox" name="ackInstructions">
+                  <label class="usa-checkbox__label" for="ackInstructions">Instructions</label>
+                </div>
+
+                <!-- Question Text -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="ackQuestion">What is your question? <span class="field-required">Required</span></label>
+                  <textarea class="usa-textarea" id="ackQuestion" name="ackQuestion" rows="6" maxlength="5000"></textarea>
+                  <div style="text-align: right; font-size: 1.4rem; color: #71767a; margin-top: 0.5rem;">
+                    <span id="ackQuestionCounter">5000 of 5000 remaining</span>
+                  </div>
+                </div>
+
+                <!-- Instructions Text (shown when Instructions checkbox is checked) -->
+                <div id="ackInstructionsGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="ackInstructionsText">Instructions <span class="field-required">Required</span></label>
+                  <div class="mock-editor">
+                    <div class="mock-editor__toolbar">
+                      <button type="button" class="mock-editor__btn" title="Bold"><strong>B</strong></button>
+                      <button type="button" class="mock-editor__btn" title="Italic"><em>I</em></button>
+                      <button type="button" class="mock-editor__btn" title="Underline"><u>U</u></button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Numbered List">1.</button>
+                      <button type="button" class="mock-editor__btn" title="Bullet List">•</button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Link">🔗</button>
+                    </div>
+                    <textarea class="mock-editor__textarea" id="ackInstructionsText" name="ackInstructionsText" rows="6" maxlength="3000"></textarea>
+                  </div>
+                </div>
+
+                <!-- Clear Button -->
+                <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                  <button type="button" class="usa-button usa-button--accent-cool" id="clearAcknowledgementButton">Clear</button>
+                </div>
+              </div>
+
+              <!-- Date / Date Range Section -->
+              <div id="dateSection" style="display: none; margin-top: 2rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Question Options:</h3>
+
+                <!-- Checkboxes -->
+                <div class="usa-checkbox" style="margin-bottom: 1rem;">
+                  <input class="usa-checkbox__input" id="dtRequired" type="checkbox" name="dtRequired" checked>
+                  <label class="usa-checkbox__label" for="dtRequired">Required</label>
+                </div>
+                <div class="usa-checkbox" style="margin-bottom: 1rem;">
+                  <input class="usa-checkbox__input" id="dtInstructions" type="checkbox" name="dtInstructions">
+                  <label class="usa-checkbox__label" for="dtInstructions">Instructions</label>
+                </div>
+                <div class="usa-checkbox" style="margin-bottom: 2rem;">
+                  <input class="usa-checkbox__input" id="dtDateRange" type="checkbox" name="dtDateRange">
+                  <label class="usa-checkbox__label" for="dtDateRange">Date Range Answer</label>
+                </div>
+
+                <!-- Question Text -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="dtQuestion">What is your question? <span class="field-required">Required</span></label>
+                  <textarea class="usa-textarea" id="dtQuestion" name="dtQuestion" rows="3" maxlength="300"></textarea>
+                  <div style="text-align: right; font-size: 1.4rem; color: #71767a; margin-top: 0.5rem;">
+                    <span id="dtQuestionCounter">300 of 300 remaining</span>
+                  </div>
+                </div>
+
+                <!-- Instructions Text (shown when Instructions checkbox is checked) -->
+                <div id="dtInstructionsGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="dtInstructionsText">Instructions <span class="field-required">Required</span></label>
+                  <div class="mock-editor">
+                    <div class="mock-editor__toolbar">
+                      <button type="button" class="mock-editor__btn" title="Bold"><strong>B</strong></button>
+                      <button type="button" class="mock-editor__btn" title="Italic"><em>I</em></button>
+                      <button type="button" class="mock-editor__btn" title="Underline"><u>U</u></button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Numbered List">1.</button>
+                      <button type="button" class="mock-editor__btn" title="Bullet List">•</button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Link">🔗</button>
+                    </div>
+                    <textarea class="mock-editor__textarea" id="dtInstructionsText" name="dtInstructionsText" rows="6" maxlength="3000"></textarea>
+                  </div>
+                </div>
+
+                <!-- Clear Button -->
+                <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                  <button type="button" class="usa-button usa-button--accent-cool" id="clearDateButton">Clear</button>
                 </div>
               </div>
 
@@ -460,12 +636,92 @@
         sessionStorage.removeItem('editQuestionData');
         sessionStorage.removeItem('editQuestionIndex');
 
-        // Pre-populate the Free Form section
-        if (questionData.questionType === 'ff') {
+        // Pre-populate the appropriate section
+        if (questionData.questionType === 'ff' || questionData.type === 'ff') {
           populateFreeFormForEdit(questionData);
+        } else if (questionData.questionType === 'yn' || questionData.type === 'yn') {
+          populateYesNoForEdit(questionData);
+        } else if (questionData.questionType === 'ack' || questionData.type === 'ack') {
+          populateAcknowledgementForEdit(questionData);
+        } else if (questionData.questionType === 'dt' || questionData.type === 'dt') {
+          populateDateForEdit(questionData);
         }
       }
     });
+
+    function populateAcknowledgementForEdit(questionData) {
+      // Set question type to Acknowledgment
+      document.getElementById('questionType').value = 'Acknowledgment';
+
+      // Show Acknowledgement section
+      document.getElementById('acknowledgementSection').style.display = 'block';
+
+      // Populate basic fields
+      document.getElementById('ackQuestion').value = questionData.question || '';
+      document.getElementById('ackQuestionCounter').textContent = (5000 - questionData.question.length) + ' of 5000 remaining';
+
+      // Handle instructions
+      if (questionData.instructions && questionData.instructions !== 'y' && questionData.instructions !== '') {
+        document.getElementById('ackInstructions').checked = true;
+        document.getElementById('ackInstructionsGroup').style.display = 'block';
+        document.getElementById('ackInstructionsText').value = questionData.instructions;
+      } else {
+        document.getElementById('ackInstructions').checked = false;
+        document.getElementById('ackInstructionsGroup').style.display = 'none';
+      }
+    }
+
+    function populateDateForEdit(questionData) {
+      // Set question type to Date / Date Range
+      document.getElementById('questionType').value = 'Date / Date Range';
+
+      // Show Date section
+      document.getElementById('dateSection').style.display = 'block';
+
+      // Populate basic fields
+      document.getElementById('dtQuestion').value = questionData.question || '';
+      document.getElementById('dtQuestionCounter').textContent = (300 - questionData.question.length) + ' of 300 remaining';
+      document.getElementById('dtRequired').checked = questionData.required === 'y';
+
+      // Handle instructions
+      if (questionData.instructions && questionData.instructions !== 'y' && questionData.instructions !== '') {
+        document.getElementById('dtInstructions').checked = true;
+        document.getElementById('dtInstructionsGroup').style.display = 'block';
+        document.getElementById('dtInstructionsText').value = questionData.instructions;
+      } else {
+        document.getElementById('dtInstructions').checked = false;
+        document.getElementById('dtInstructionsGroup').style.display = 'none';
+      }
+
+      // Set date range checkbox
+      document.getElementById('dtDateRange').checked = questionData.dateRange === 'y';
+    }
+
+    function populateYesNoForEdit(questionData) {
+      // Set question type to Yes/No; Either/Or
+      document.getElementById('questionType').value = 'Yes/No; Either/Or';
+
+      // Show Yes/No section
+      document.getElementById('yesNoSection').style.display = 'block';
+
+      // Populate basic fields
+      document.getElementById('ynQuestion').value = questionData.question || '';
+      document.getElementById('ynQuestionCounter').textContent = (500 - questionData.question.length) + ' of 500 remaining';
+      document.getElementById('ynRequired').checked = questionData.required === 'y';
+
+      // Handle instructions
+      if (questionData.instructions && questionData.instructions !== 'y' && questionData.instructions !== '') {
+        document.getElementById('ynInstructions').checked = true;
+        document.getElementById('ynInstructionsGroup').style.display = 'block';
+        document.getElementById('ynInstructionsText').value = questionData.instructions;
+      } else {
+        document.getElementById('ynInstructions').checked = false;
+        document.getElementById('ynInstructionsGroup').style.display = 'none';
+      }
+
+      document.getElementById('ynChoice1').value = questionData.choice1 || '';
+      document.getElementById('ynChoice2').value = questionData.choice2 || '';
+    }
 
     function populateFreeFormForEdit(questionData) {
       // Set question type to Free Form
@@ -478,7 +734,16 @@
       document.getElementById('ffQuestion').value = questionData.question || '';
       document.getElementById('ffQuestionCounter').textContent = (300 - questionData.question.length) + ' of 300 remaining';
       document.getElementById('ffRequired').checked = questionData.required === 'y';
-      document.getElementById('ffInstructions').checked = questionData.instructions === 'y';
+
+      // Handle instructions
+      if (questionData.instructions && questionData.instructions !== 'y' && questionData.instructions !== '') {
+        document.getElementById('ffInstructions').checked = true;
+        document.getElementById('ffInstructionsGroup').style.display = 'block';
+        document.getElementById('ffInstructionsText').value = questionData.instructions;
+      } else {
+        document.getElementById('ffInstructions').checked = false;
+        document.getElementById('ffInstructionsGroup').style.display = 'none';
+      }
 
       // Set format
       const format = questionData.format === 'an' ? 'alphanumeric' : 'numeric';
@@ -527,16 +792,28 @@
     document.getElementById('questionType').addEventListener('change', function() {
       const formBuilderSection = document.getElementById('formBuilderSection');
       const freeFormSection = document.getElementById('freeFormSection');
+      const yesNoSection = document.getElementById('yesNoSection');
+      const acknowledgementSection = document.getElementById('acknowledgementSection');
+      const dateSection = document.getElementById('dateSection');
 
       // Hide all sections first
       formBuilderSection.style.display = 'none';
       freeFormSection.style.display = 'none';
+      yesNoSection.style.display = 'none';
+      acknowledgementSection.style.display = 'none';
+      dateSection.style.display = 'none';
 
       // Show the appropriate section
       if (this.value === 'Form Builder') {
         formBuilderSection.style.display = 'block';
       } else if (this.value === 'Free Form') {
         freeFormSection.style.display = 'block';
+      } else if (this.value === 'Yes/No; Either/Or') {
+        yesNoSection.style.display = 'block';
+      } else if (this.value === 'Acknowledgment') {
+        acknowledgementSection.style.display = 'block';
+      } else if (this.value === 'Date / Date Range') {
+        dateSection.style.display = 'block';
       }
     });
 
@@ -560,6 +837,83 @@
     ffQuestionField.addEventListener('input', function() {
       const remaining = 300 - this.value.length;
       ffQuestionCounter.textContent = `${remaining} of 300 remaining`;
+    });
+
+    // Show/hide instructions textarea for Free Form
+    document.getElementById('ffInstructions').addEventListener('change', function() {
+      const instructionsGroup = document.getElementById('ffInstructionsGroup');
+      if (this.checked) {
+        instructionsGroup.style.display = 'block';
+      } else {
+        instructionsGroup.style.display = 'none';
+        document.getElementById('ffInstructionsText').value = '';
+      }
+    });
+
+    // Yes/No Question Builder functionality
+
+    // Character counter for yes/no question field
+    const ynQuestionField = document.getElementById('ynQuestion');
+    const ynQuestionCounter = document.getElementById('ynQuestionCounter');
+
+    ynQuestionField.addEventListener('input', function() {
+      const remaining = 500 - this.value.length;
+      ynQuestionCounter.textContent = `${remaining} of 500 remaining`;
+    });
+
+    // Show/hide instructions textarea for Yes/No
+    document.getElementById('ynInstructions').addEventListener('change', function() {
+      const instructionsGroup = document.getElementById('ynInstructionsGroup');
+      if (this.checked) {
+        instructionsGroup.style.display = 'block';
+      } else {
+        instructionsGroup.style.display = 'none';
+        document.getElementById('ynInstructionsText').value = '';
+      }
+    });
+
+    // Acknowledgement Question Builder functionality
+
+    // Character counter for acknowledgement question field
+    const ackQuestionField = document.getElementById('ackQuestion');
+    const ackQuestionCounter = document.getElementById('ackQuestionCounter');
+
+    ackQuestionField.addEventListener('input', function() {
+      const remaining = 5000 - this.value.length;
+      ackQuestionCounter.textContent = `${remaining} of 5000 remaining`;
+    });
+
+    // Show/hide instructions textarea for Acknowledgement
+    document.getElementById('ackInstructions').addEventListener('change', function() {
+      const instructionsGroup = document.getElementById('ackInstructionsGroup');
+      if (this.checked) {
+        instructionsGroup.style.display = 'block';
+      } else {
+        instructionsGroup.style.display = 'none';
+        document.getElementById('ackInstructionsText').value = '';
+      }
+    });
+
+    // Date / Date Range Question Builder functionality
+
+    // Character counter for date question field
+    const dtQuestionField = document.getElementById('dtQuestion');
+    const dtQuestionCounter = document.getElementById('dtQuestionCounter');
+
+    dtQuestionField.addEventListener('input', function() {
+      const remaining = 300 - this.value.length;
+      dtQuestionCounter.textContent = `${remaining} of 300 remaining`;
+    });
+
+    // Show/hide instructions textarea for Date
+    document.getElementById('dtInstructions').addEventListener('change', function() {
+      const instructionsGroup = document.getElementById('dtInstructionsGroup');
+      if (this.checked) {
+        instructionsGroup.style.display = 'block';
+      } else {
+        instructionsGroup.style.display = 'none';
+        document.getElementById('dtInstructionsText').value = '';
+      }
     });
 
     // Show/hide Response Length or Format Options based on Format selection
@@ -626,6 +980,65 @@
       }
     });
 
+    // Clear Acknowledgement button handler
+    document.getElementById('clearAcknowledgementButton').addEventListener('click', function() {
+      // Reset all acknowledgement fields
+      document.getElementById('ackQuestion').value = '';
+      document.getElementById('ackQuestionCounter').textContent = '5000 of 5000 remaining';
+      document.getElementById('ackInstructions').checked = false;
+      document.getElementById('ackInstructionsGroup').style.display = 'none';
+      document.getElementById('ackInstructionsText').value = '';
+
+      // Reset edit mode flags
+      isEditMode = false;
+      editQuestionIndex = null;
+
+      // Reset to Question Type dropdown
+      document.getElementById('questionType').value = '';
+      document.getElementById('acknowledgementSection').style.display = 'none';
+    });
+
+    // Clear Date button handler
+    document.getElementById('clearDateButton').addEventListener('click', function() {
+      // Reset all date fields
+      document.getElementById('dtQuestion').value = '';
+      document.getElementById('dtQuestionCounter').textContent = '300 of 300 remaining';
+      document.getElementById('dtRequired').checked = true;
+      document.getElementById('dtInstructions').checked = false;
+      document.getElementById('dtInstructionsGroup').style.display = 'none';
+      document.getElementById('dtInstructionsText').value = '';
+      document.getElementById('dtDateRange').checked = false;
+
+      // Reset edit mode flags
+      isEditMode = false;
+      editQuestionIndex = null;
+
+      // Reset to Question Type dropdown
+      document.getElementById('questionType').value = '';
+      document.getElementById('dateSection').style.display = 'none';
+    });
+
+    // Clear Yes/No button handler
+    document.getElementById('clearYesNoButton').addEventListener('click', function() {
+      // Reset all yes/no fields
+      document.getElementById('ynQuestion').value = '';
+      document.getElementById('ynQuestionCounter').textContent = '500 of 500 remaining';
+      document.getElementById('ynRequired').checked = true;
+      document.getElementById('ynInstructions').checked = false;
+      document.getElementById('ynInstructionsGroup').style.display = 'none';
+      document.getElementById('ynInstructionsText').value = '';
+      document.getElementById('ynChoice1').value = '';
+      document.getElementById('ynChoice2').value = '';
+
+      // Reset edit mode flags
+      isEditMode = false;
+      editQuestionIndex = null;
+
+      // Reset to Question Type dropdown
+      document.getElementById('questionType').value = '';
+      document.getElementById('yesNoSection').style.display = 'none';
+    });
+
     // Clear Free Form button handler
     document.getElementById('clearFreeFormButton').addEventListener('click', function() {
       // Reset all free form fields
@@ -633,6 +1046,8 @@
       document.getElementById('ffQuestionCounter').textContent = '300 of 300 remaining';
       document.getElementById('ffRequired').checked = true;
       document.getElementById('ffInstructions').checked = false;
+      document.getElementById('ffInstructionsGroup').style.display = 'none';
+      document.getElementById('ffInstructionsText').value = '';
       document.getElementById('ffFormat').value = '';
       document.getElementById('ffResponseLengthGroup').style.display = 'none';
       document.getElementById('ffResponseLength').value = '';
@@ -665,11 +1080,136 @@
       document.getElementById('freeFormSection').style.display = 'none';
     });
 
+    // Function to validate and build acknowledgement question
+    function buildAcknowledgementQuestion() {
+      // Validate required fields
+      const question = document.getElementById('ackQuestion').value.trim();
+      const hasInstructions = document.getElementById('ackInstructions').checked;
+
+      if (!question) {
+        alert('Please enter a question.');
+        return null;
+      }
+
+      // Validate instructions if checkbox is checked
+      if (hasInstructions) {
+        const instructionsText = document.getElementById('ackInstructionsText').value.trim();
+        if (!instructionsText) {
+          alert('Please enter instructions text.');
+          return null;
+        }
+        if (instructionsText.length > 3000) {
+          alert('Instructions must be 3000 characters or less.');
+          return null;
+        }
+      }
+
+      // Build question object (always required)
+      const questionObj = {
+        type: 'ack',
+        questionType: 'ack',
+        question: question,
+        required: 'y', // Always required
+        instructions: hasInstructions ? document.getElementById('ackInstructionsText').value.trim() : ''
+      };
+
+      return questionObj;
+    }
+
+    // Function to validate and build date question
+    function buildDateQuestion() {
+      // Validate required fields
+      const question = document.getElementById('dtQuestion').value.trim();
+      const hasInstructions = document.getElementById('dtInstructions').checked;
+      const isDateRange = document.getElementById('dtDateRange').checked;
+
+      if (!question) {
+        alert('Please enter a question.');
+        return null;
+      }
+
+      // Validate instructions if checkbox is checked
+      if (hasInstructions) {
+        const instructionsText = document.getElementById('dtInstructionsText').value.trim();
+        if (!instructionsText) {
+          alert('Please enter instructions text.');
+          return null;
+        }
+        if (instructionsText.length > 3000) {
+          alert('Instructions must be 3000 characters or less.');
+          return null;
+        }
+      }
+
+      // Build question object
+      const questionObj = {
+        type: 'dt',
+        questionType: 'dt',
+        question: question,
+        required: document.getElementById('dtRequired').checked ? 'y' : 'n',
+        instructions: hasInstructions ? document.getElementById('dtInstructionsText').value.trim() : '',
+        dateRange: isDateRange ? 'y' : 'n'
+      };
+
+      return questionObj;
+    }
+
+    // Function to validate and build yes/no question
+    function buildYesNoQuestion() {
+      // Validate required fields
+      const question = document.getElementById('ynQuestion').value.trim();
+      const choice1 = document.getElementById('ynChoice1').value.trim();
+      const choice2 = document.getElementById('ynChoice2').value.trim();
+      const hasInstructions = document.getElementById('ynInstructions').checked;
+
+      if (!question) {
+        alert('Please enter a question.');
+        return null;
+      }
+
+      if (!choice1) {
+        alert('Please enter Choice 1.');
+        return null;
+      }
+
+      if (!choice2) {
+        alert('Please enter Choice 2.');
+        return null;
+      }
+
+      // Validate instructions if checkbox is checked
+      if (hasInstructions) {
+        const instructionsText = document.getElementById('ynInstructionsText').value.trim();
+        if (!instructionsText) {
+          alert('Please enter instructions text.');
+          return null;
+        }
+        if (instructionsText.length > 3000) {
+          alert('Instructions must be 3000 characters or less.');
+          return null;
+        }
+      }
+
+      // Build question object
+      const questionObj = {
+        type: 'yn',
+        questionType: 'yn',
+        question: question,
+        required: document.getElementById('ynRequired').checked ? 'y' : 'n',
+        instructions: hasInstructions ? document.getElementById('ynInstructionsText').value.trim() : '',
+        choice1: choice1,
+        choice2: choice2
+      };
+
+      return questionObj;
+    }
+
     // Function to validate and build free form question
     function buildFreeFormQuestion() {
       // Validate required fields
       const question = document.getElementById('ffQuestion').value.trim();
       const format = document.getElementById('ffFormat').value;
+      const hasInstructions = document.getElementById('ffInstructions').checked;
 
       if (!question) {
         alert('Please enter a question.');
@@ -681,13 +1221,26 @@
         return null;
       }
 
+      // Validate instructions if checkbox is checked
+      if (hasInstructions) {
+        const instructionsText = document.getElementById('ffInstructionsText').value.trim();
+        if (!instructionsText) {
+          alert('Please enter instructions text.');
+          return null;
+        }
+        if (instructionsText.length > 3000) {
+          alert('Instructions must be 3000 characters or less.');
+          return null;
+        }
+      }
+
       // Build question object
       const questionObj = {
         type: 'question',
         questionType: 'ff',
         question: question,
         required: document.getElementById('ffRequired').checked ? 'y' : 'n',
-        instructions: document.getElementById('ffInstructions').checked ? 'y' : '',
+        instructions: hasInstructions ? document.getElementById('ffInstructionsText').value.trim() : '',
         format: format === 'alphanumeric' ? 'an' : 'num'
       };
 
@@ -794,18 +1347,49 @@
     document.getElementById('saveButton').addEventListener('click', function() {
       console.log('Save clicked. parsedQuestions:', parsedQuestions);
 
-      // Check if user is building a Free Form question
+      // Check if user is building a question
       const freeFormSection = document.getElementById('freeFormSection');
+      const yesNoSection = document.getElementById('yesNoSection');
+      const acknowledgementSection = document.getElementById('acknowledgementSection');
+      const dateSection = document.getElementById('dateSection');
       const questionType = document.getElementById('questionType').value;
 
-      if (questionType === 'Free Form' && freeFormSection.style.display !== 'none') {
-        // Try to build the free form question
-        const ffQuestion = buildFreeFormQuestion();
-        if (!ffQuestion) {
-          // Validation failed, buildFreeFormQuestion already showed an alert
-          return;
-        }
+      let builtQuestion = null;
 
+      // Try to build Free Form question
+      if (questionType === 'Free Form' && freeFormSection.style.display !== 'none') {
+        builtQuestion = buildFreeFormQuestion();
+        if (!builtQuestion) {
+          return; // Validation failed
+        }
+      }
+
+      // Try to build Yes/No question
+      if (questionType === 'Yes/No; Either/Or' && yesNoSection.style.display !== 'none') {
+        builtQuestion = buildYesNoQuestion();
+        if (!builtQuestion) {
+          return; // Validation failed
+        }
+      }
+
+      // Try to build Acknowledgement question
+      if (questionType === 'Acknowledgment' && acknowledgementSection.style.display !== 'none') {
+        builtQuestion = buildAcknowledgementQuestion();
+        if (!builtQuestion) {
+          return; // Validation failed
+        }
+      }
+
+      // Try to build Date question
+      if (questionType === 'Date / Date Range' && dateSection.style.display !== 'none') {
+        builtQuestion = buildDateQuestion();
+        if (!builtQuestion) {
+          return; // Validation failed
+        }
+      }
+
+      // If we built a question, handle edit or add
+      if (builtQuestion) {
         // If in edit mode, update the existing question
         if (isEditMode && editQuestionIndex !== null) {
           // Load existing questions from storage
@@ -814,7 +1398,7 @@
             parsedQuestions = JSON.parse(storedQuestions);
           }
           // Update the question at the edit index
-          parsedQuestions[editQuestionIndex] = ffQuestion;
+          parsedQuestions[editQuestionIndex] = builtQuestion;
 
           // Store and set notification flag for edit
           const questionsData = JSON.stringify(parsedQuestions);
@@ -829,7 +1413,7 @@
           return;
         } else {
           // Add the question to the array
-          parsedQuestions.push(ffQuestion);
+          parsedQuestions.push(builtQuestion);
         }
       } else if (questionType === 'Form Builder') {
         // Form Builder requires Build Questions to be clicked first
@@ -884,7 +1468,22 @@
 
         if (!rawLine) continue; // Ignore blank lines
 
-        const result = parseFFLine(rawLine, rowNumber);
+        // Detect question type from first token
+        const tokens = rawLine.split("|").map(t => t.trim());
+        const questionType = (tokens[0] || "").toLowerCase();
+
+        let result;
+        if (questionType === "ff") {
+          result = parseFFLine(rawLine, rowNumber);
+        } else if (questionType === "yn") {
+          result = parseYNLine(rawLine, rowNumber);
+        } else if (questionType === "ack") {
+          result = parseACKLine(rawLine, rowNumber);
+        } else if (questionType === "dt") {
+          result = parseDTLine(rawLine, rowNumber);
+        } else {
+          result = fail(rowNumber, `Unknown question type "${tokens[0]}". Supported types: ff, yn, ack, dt`);
+        }
 
         if (result.ok) {
           parsed.push(result.data);
@@ -989,6 +1588,154 @@
     }
 
     /**
+     * Parse a single Acknowledgement line
+     */
+    function parseACKLine(line, rowNumber) {
+      const tokens = line.split("|").map(t => t.trim());
+
+      // Check for too many fields
+      if (tokens.length > 3) {
+        return fail(rowNumber, "Too many fields for ack. Expected 3 or fewer.");
+      }
+
+      // Validate type
+      const type = (tokens[0] || "").toLowerCase();
+      if (type !== "ack") {
+        return fail(rowNumber, `Unknown type "${tokens[0]}". Expected ack.`);
+      }
+
+      // Validate question text (statement)
+      const question = tokens[1] || "";
+      if (!question) {
+        return fail(rowNumber, "Statement text is required for ack.");
+      }
+
+      // Instructions (optional, default to empty string)
+      const instructions = tokens[2] || "";
+
+      return {
+        ok: true,
+        data: {
+          type: "ack",
+          question,
+          required: "y", // Always required
+          instructions,
+          rowNumber
+        }
+      };
+    }
+
+    /**
+     * Parse a single Yes/No; Either/Or line
+     */
+    function parseYNLine(line, rowNumber) {
+      const tokens = line.split("|").map(t => t.trim());
+
+      // Check for too many fields
+      if (tokens.length > 4) {
+        return fail(rowNumber, "Too many fields for yn. Expected 4 or fewer.");
+      }
+
+      // Validate type
+      const type = (tokens[0] || "").toLowerCase();
+      if (type !== "yn") {
+        return fail(rowNumber, `Unknown type "${tokens[0]}". Expected yn.`);
+      }
+
+      // Validate question text
+      const question = tokens[1] || "";
+      if (!question) {
+        return fail(rowNumber, "Question text is required for yn.");
+      }
+
+      // Validate and normalize required field (defaults to required/y)
+      const requiredRaw = (tokens[2] || "y").toLowerCase();
+      let required;
+      if (requiredRaw === "n" || requiredRaw === "no") {
+        required = "n";
+      } else if (requiredRaw === "y" || requiredRaw === "yes" || requiredRaw === "") {
+        required = "y";
+      } else {
+        return fail(rowNumber, "Required must be y or n.");
+      }
+
+      // Instructions (optional, default to empty string)
+      const instructions = tokens[3] || "";
+
+      return {
+        ok: true,
+        data: {
+          type: "yn",
+          question,
+          required,
+          instructions,
+          rowNumber
+        }
+      };
+    }
+
+    /**
+     * Parse a single Date / Date Range line
+     */
+    function parseDTLine(line, rowNumber) {
+      const tokens = line.split("|").map(t => t.trim());
+
+      // Check for too many fields
+      if (tokens.length > 5) {
+        return fail(rowNumber, "Too many fields for dt. Expected 5 or fewer.");
+      }
+
+      // Validate type
+      const type = (tokens[0] || "").toLowerCase();
+      if (type !== "dt") {
+        return fail(rowNumber, `Unknown type "${tokens[0]}". Expected dt.`);
+      }
+
+      // Validate question text
+      const question = tokens[1] || "";
+      if (!question) {
+        return fail(rowNumber, "Question text is required for dt.");
+      }
+
+      // Validate and normalize required field (defaults to required/y)
+      const requiredRaw = (tokens[2] || "y").toLowerCase();
+      let required;
+      if (requiredRaw === "n" || requiredRaw === "no") {
+        required = "n";
+      } else if (requiredRaw === "y" || requiredRaw === "yes" || requiredRaw === "") {
+        required = "y";
+      } else {
+        return fail(rowNumber, "Required must be y or n.");
+      }
+
+      // Validate date range field (defaults to n - single date)
+      const dateRangeRaw = (tokens[3] || "n").toLowerCase();
+      let dateRange;
+      if (dateRangeRaw === "n" || dateRangeRaw === "no") {
+        dateRange = "n";
+      } else if (dateRangeRaw === "y" || dateRangeRaw === "yes") {
+        dateRange = "y";
+      } else {
+        return fail(rowNumber, "Date range must be y or n.");
+      }
+
+      // Instructions (optional, default to empty string)
+      const instructions = tokens[4] || "";
+
+      return {
+        ok: true,
+        data: {
+          type: "dt",
+          question,
+          required,
+          dateRange,
+          instructions,
+          rowNumber
+        }
+      };
+    }
+
+    /**
      * Create error result
      */
     function fail(rowNumber, message) {
@@ -1074,6 +1821,127 @@
      */
     function renderFormField(q, index, bordered = false) {
       const isRequired = q.required === 'y';
+      const borderStyle = bordered ? 'border: 1px solid #dfe1e2; border-radius: 0.5rem; padding: 2rem;' : 'padding: 1rem;';
+
+      // Handle Acknowledgement questions
+      if (q.type === 'ack') {
+        let fieldHtml = `
+          <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
+        `;
+
+        // Add instructions if present (ABOVE the question)
+        if (q.instructions) {
+          fieldHtml += `
+            <div style="margin-bottom: 1.6rem;">
+              <p style="margin: 0 0 0.4rem 0; font-weight: 700; font-size: 1.6rem;">Instructions</p>
+              <p style="margin: 0; font-size: 1.6rem; color: #71767a;">${escapeHtml(q.instructions)}</p>
+            </div>
+          `;
+        }
+
+        // Add checkbox for acknowledgement (always required)
+        fieldHtml += `
+          <div class="usa-checkbox">
+            <input class="usa-checkbox__input" id="ack-${index}" type="checkbox" name="ack-${index}" required>
+            <label class="usa-checkbox__label" for="ack-${index}">
+              ${escapeHtml(q.question)}
+              <span class="field-required">Required</span>
+            </label>
+          </div>
+        `;
+
+        fieldHtml += `</div>`;
+        return fieldHtml;
+      }
+
+      // Handle Yes/No questions
+      if (q.type === 'yn') {
+        let fieldHtml = `
+          <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
+        `;
+
+        // Add instructions if present (ABOVE the question label)
+        if (q.instructions) {
+          fieldHtml += `
+            <div style="margin-bottom: 1.6rem;">
+              <p style="margin: 0 0 0.4rem 0; font-weight: 700; font-size: 1.6rem;">Instructions</p>
+              <p style="margin: 0; font-size: 1.6rem; color: #71767a;">${escapeHtml(q.instructions)}</p>
+            </div>
+          `;
+        }
+
+        // Add label for yes/no question
+        const choice1 = q.choice1 || 'Yes';
+        const choice2 = q.choice2 || 'No';
+
+        fieldHtml += `
+          <label class="usa-label">
+            ${escapeHtml(q.question)}
+            ${isRequired ? '<span class="field-required">Required</span>' : ''}
+          </label>
+          <div class="usa-radio">
+            <input class="usa-radio__input" id="yn-choice1-${index}" type="radio" name="yn-${index}" value="${escapeHtml(choice1)}" ${isRequired ? 'required' : ''}>
+            <label class="usa-radio__label" for="yn-choice1-${index}">${escapeHtml(choice1)}</label>
+          </div>
+          <div class="usa-radio">
+            <input class="usa-radio__input" id="yn-choice2-${index}" type="radio" name="yn-${index}" value="${escapeHtml(choice2)}" ${isRequired ? 'required' : ''}>
+            <label class="usa-radio__label" for="yn-choice2-${index}">${escapeHtml(choice2)}</label>
+          </div>
+        `;
+
+        fieldHtml += `</div>`;
+        return fieldHtml;
+      }
+
+      // Handle Date / Date Range questions
+      if (q.type === 'dt') {
+        let fieldHtml = `
+          <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
+        `;
+
+        // Add instructions if present (ABOVE the question label)
+        if (q.instructions) {
+          fieldHtml += `
+            <div style="margin-bottom: 1.6rem;">
+              <p style="margin: 0 0 0.4rem 0; font-weight: 700; font-size: 1.6rem;">Instructions</p>
+              <p style="margin: 0; font-size: 1.6rem; color: #71767a;">${escapeHtml(q.instructions)}</p>
+            </div>
+          `;
+        }
+
+        // Add label for date question
+        fieldHtml += `
+          <label class="usa-label" for="dt-${index}">
+            ${escapeHtml(q.question)}
+            ${isRequired ? '<span class="field-required">Required</span>' : ''}
+          </label>
+        `;
+
+        // Show single date or date range based on dateRange property
+        if (q.dateRange === 'y') {
+          fieldHtml += `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <label class="usa-label" for="dt-start-${index}" style="margin-top: 0.5rem; font-size: 1.4rem;">Start Date</label>
+                <input class="usa-input" id="dt-start-${index}" name="dt-start-${index}" type="date" ${isRequired ? 'required' : ''}>
+              </div>
+              <div>
+                <label class="usa-label" for="dt-end-${index}" style="margin-top: 0.5rem; font-size: 1.4rem;">End Date</label>
+                <input class="usa-input" id="dt-end-${index}" name="dt-end-${index}" type="date" ${isRequired ? 'required' : ''}>
+              </div>
+            </div>
+          `;
+        } else {
+          fieldHtml += `
+            <input class="usa-input" id="dt-${index}" name="dt-${index}" type="date" ${isRequired ? 'required' : ''}>
+          `;
+        }
+
+        fieldHtml += `</div>`;
+        return fieldHtml;
+      }
+
+      // Handle Free Form questions
       const isTextarea = q.length === 'xl' || q.length === 'custom';
       const inputType = q.format === 'num' ? 'number' : 'text';
 
@@ -1096,7 +1964,6 @@
       }
 
       // Build the form field HTML with optional border for preview
-      const borderStyle = bordered ? 'border: 1px solid #dfe1e2; border-radius: 0.5rem; padding: 2rem;' : 'padding: 1rem;';
       let fieldHtml = `
         <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
       `;

@@ -548,6 +548,26 @@
 
         // Handle Question
         const isRequired = item.required === 'y';
+
+        // Determine question type icon
+        const questionType = item.type || item.questionType || 'ff';
+        let questionIcon = 'question-type-free-form.svg';
+        let questionIconAlt = 'Free Form';
+
+        if (questionType === 'ack') {
+          questionIcon = 'question-type-acknowledgement.svg';
+          questionIconAlt = 'Acknowledgement';
+        } else if (questionType === 'yn') {
+          questionIcon = 'question-type-yes-no.svg';
+          questionIconAlt = 'Yes/No; Either/Or';
+        } else if (questionType === 'dt') {
+          questionIcon = 'question-type-date.svg';
+          questionIconAlt = 'Date / Date Range';
+        } else if (questionType === 'ff') {
+          questionIcon = 'question-type-free-form.svg';
+          questionIconAlt = 'Free Form';
+        }
+
         return `
           <div class="question-row-container" data-question-number="${itemNumber}">
             <div class="question-row-grid">
@@ -561,7 +581,7 @@
               <div class="question-row__options-col">
                 ${isRequired ? '<span class="question-row__badge">R</span>' : ''}
                 <span class="question-row__options-separator">|</span>
-                <img src="assets/question-type-free-form.svg" alt="Free Form" width="25" height="25">
+                <img src="assets/${questionIcon}" alt="${questionIconAlt}" width="25" height="25">
               </div>
 
               <!-- Controls Column -->
