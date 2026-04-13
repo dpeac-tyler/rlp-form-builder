@@ -218,7 +218,8 @@
 
                         <div style="margin-bottom: 2rem;">
                           <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Multiple Choice</h4>
-                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">mc | question | y/n | choices(a,b,c,...) | instructions</code>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">mc | question | y/n | choice1,choice2,choice3 | instructions</code>
+                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">Choices: comma-separated list (minimum 2 required)</p>
                         </div>
                       </div>
 
@@ -576,6 +577,566 @@
                 </div>
               </div>
 
+              <!-- Multiple Choice Section -->
+              <div id="multipleChoiceSection" style="display: none; margin-top: 2rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Question Options:</h3>
+
+                <!-- Checkboxes -->
+                <div class="usa-checkbox" style="margin-bottom: 1rem;">
+                  <input class="usa-checkbox__input" id="mcRequired" type="checkbox" name="mcRequired" checked>
+                  <label class="usa-checkbox__label" for="mcRequired">Required</label>
+                </div>
+                <div class="usa-checkbox" style="margin-bottom: 2rem;">
+                  <input class="usa-checkbox__input" id="mcInstructions" type="checkbox" name="mcInstructions">
+                  <label class="usa-checkbox__label" for="mcInstructions">Instructions</label>
+                </div>
+
+                <!-- Question Text -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="mcQuestion">What is your question? <span class="field-required">Required</span></label>
+                  <textarea class="usa-textarea" id="mcQuestion" name="mcQuestion" rows="3" maxlength="500"></textarea>
+                  <div style="text-align: right; font-size: 1.4rem; color: #71767a; margin-top: 0.5rem;">
+                    <span id="mcQuestionCounter">500 of 500 remaining</span>
+                  </div>
+                </div>
+
+                <!-- Choices Container -->
+                <div id="mcChoicesContainer">
+                  <!-- Choice 1 -->
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem; position: relative;" data-choice-number="1">
+                    <label class="usa-label" for="mcChoice1">Choice 1 <span class="field-required">Required</span></label>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                      <input class="usa-input" id="mcChoice1" name="mcChoice1" type="text" style="flex: 1;">
+                      <button type="button" class="mc-delete-btn" style="display: none;" onclick="deleteMCChoice(1)">
+                        <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Choice 2 -->
+                  <div class="usa-form-group" style="margin-bottom: 1.5rem; position: relative;" data-choice-number="2">
+                    <label class="usa-label" for="mcChoice2">Choice 2 <span class="field-required">Required</span></label>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                      <input class="usa-input" id="mcChoice2" name="mcChoice2" type="text" style="flex: 1;">
+                      <button type="button" class="mc-delete-btn" style="display: none;" onclick="deleteMCChoice(2)">
+                        <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Add Choice Button -->
+                <div style="margin-bottom: 2rem;">
+                  <button type="button" class="usa-button usa-button--accent-warm" id="addMCChoiceButton">Add Choice</button>
+                </div>
+
+                <!-- Instructions Text (shown when Instructions checkbox is checked) -->
+                <div id="mcInstructionsGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="mcInstructionsText">Instructions <span class="field-required">Required</span></label>
+                  <div class="mock-editor">
+                    <div class="mock-editor__toolbar">
+                      <button type="button" class="mock-editor__btn" title="Bold"><strong>B</strong></button>
+                      <button type="button" class="mock-editor__btn" title="Italic"><em>I</em></button>
+                      <button type="button" class="mock-editor__btn" title="Underline"><u>U</u></button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Numbered List">1.</button>
+                      <button type="button" class="mock-editor__btn" title="Bullet List">•</button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Link">🔗</button>
+                    </div>
+                    <textarea class="mock-editor__textarea" id="mcInstructionsText" name="mcInstructionsText" rows="6" maxlength="3000"></textarea>
+                  </div>
+                </div>
+
+                <!-- Clear Button -->
+                <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                  <button type="button" class="usa-button usa-button--accent-cool" id="clearMultipleChoiceButton">Clear</button>
+                </div>
+              </div>
+
+              <!-- Table Section -->
+              <div id="tableSection" style="display: none; margin-top: 2rem;">
+                <p style="font-size: 1.6rem; margin-bottom: 1.5rem;">Question Options</p>
+
+                <!-- Checkboxes -->
+                <div class="usa-checkbox" style="margin-bottom: 2rem;">
+                  <input class="usa-checkbox__input" id="tblInstructions" type="checkbox" name="tblInstructions">
+                  <label class="usa-checkbox__label" for="tblInstructions">Instructions</label>
+                </div>
+
+                <!-- Question Text -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="tblQuestion">What is your question? <span class="field-required">Required</span></label>
+                  <textarea class="usa-textarea" id="tblQuestion" name="tblQuestion" rows="3" maxlength="500"></textarea>
+                  <div style="text-align: right; font-size: 1.4rem; color: #71767a; margin-top: 0.5rem;">
+                    <span id="tblQuestionCounter">500 of 500 remaining</span>
+                  </div>
+                </div>
+
+                <!-- Headers Instruction -->
+                <p style="font-size: 1.6rem; margin-bottom: 1.5rem;">Enter your column header titles below (up to 6)</p>
+
+                <!-- Headers Container -->
+                <div id="tblHeadersContainer">
+                  <!-- Header 1 -->
+                  <div class="section-indicator section-indicator--small" data-section="1" data-header-number="1" style="background-color: #fff; padding: 2.4rem 5rem; border: 1px solid #dfe1e2; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                      <h3 style="font-size: 1.8rem; font-weight: 700; margin: 0;">Header 1</h3>
+                      <button type="button" class="tbl-delete-header-btn" style="display: none;" onclick="deleteTblHeader(1)">
+                        <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+                      </button>
+                    </div>
+                    <hr style="border: none; border-top: 1px solid #dfe1e2; margin-bottom: 2rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                      <div class="usa-form-group">
+                        <label class="usa-label" for="tblHeader1">Header 1 <span class="field-required">Required</span></label>
+                        <input class="usa-input" id="tblHeader1" name="tblHeader1" type="text">
+                      </div>
+                      <div class="usa-form-group">
+                        <label class="usa-label" for="tblFormat1">Column Format <span class="field-required">Required</span></label>
+                        <select class="usa-select" id="tblFormat1" name="tblFormat1">
+                          <option value="">Please Select</option>
+                          <option value="alphanumeric">Alpha Numeric</option>
+                          <option value="numeric">Numeric</option>
+                          <option value="date">Date Field</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Header 2 -->
+                  <div class="section-indicator section-indicator--small" data-section="2" data-header-number="2" style="background-color: #fff; padding: 2.4rem 5rem; border: 1px solid #dfe1e2; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                      <h3 style="font-size: 1.8rem; font-weight: 700; margin: 0;">Header 2</h3>
+                      <button type="button" class="tbl-delete-header-btn" style="display: none;" onclick="deleteTblHeader(2)">
+                        <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+                      </button>
+                    </div>
+                    <hr style="border: none; border-top: 1px solid #dfe1e2; margin-bottom: 2rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                      <div class="usa-form-group">
+                        <label class="usa-label" for="tblHeader2">Header 2 <span class="field-required">Required</span></label>
+                        <input class="usa-input" id="tblHeader2" name="tblHeader2" type="text">
+                      </div>
+                      <div class="usa-form-group">
+                        <label class="usa-label" for="tblFormat2">Column Format <span class="field-required">Required</span></label>
+                        <select class="usa-select" id="tblFormat2" name="tblFormat2">
+                          <option value="">Please Select</option>
+                          <option value="alphanumeric">Alpha Numeric</option>
+                          <option value="numeric">Numeric</option>
+                          <option value="date">Date Field</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Add Header Button -->
+                <div style="margin-bottom: 2rem;">
+                  <button type="button" class="usa-button usa-button--accent-warm" id="addTblHeaderButton">Add Header</button>
+                </div>
+
+                <!-- Number of Required Rows -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="tblRequiredRows">Number of required rows <span class="field-required">Required</span></label>
+                  <input class="usa-input" id="tblRequiredRows" name="tblRequiredRows" type="number" min="0" max="30" value="0">
+                </div>
+
+                <!-- Instructions Text (shown when Instructions checkbox is checked) -->
+                <div id="tblInstructionsGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="tblInstructionsText">Instructions <span class="field-required">Required</span></label>
+                  <div class="mock-editor">
+                    <div class="mock-editor__toolbar">
+                      <button type="button" class="mock-editor__btn" title="Bold"><strong>B</strong></button>
+                      <button type="button" class="mock-editor__btn" title="Italic"><em>I</em></button>
+                      <button type="button" class="mock-editor__btn" title="Underline"><u>U</u></button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Numbered List">1.</button>
+                      <button type="button" class="mock-editor__btn" title="Bullet List">•</button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Link">🔗</button>
+                    </div>
+                    <textarea class="mock-editor__textarea" id="tblInstructionsText" name="tblInstructionsText" rows="6" maxlength="3000"></textarea>
+                  </div>
+                </div>
+
+                <!-- Clear Button -->
+                <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                  <button type="button" class="usa-button usa-button--accent-cool" id="clearTableButton">Clear</button>
+                </div>
+              </div>
+
+              <!-- Address / Repeatable Fields Section -->
+              <div id="addressSection" style="display: none; margin-top: 2rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Question Options:</h3>
+
+                <!-- Checkboxes -->
+                <div class="usa-checkbox" style="margin-bottom: 2rem;">
+                  <input class="usa-checkbox__input" id="addrInstructions" type="checkbox" name="addrInstructions">
+                  <label class="usa-checkbox__label" for="addrInstructions">Instructions</label>
+                </div>
+
+                <!-- Question Text -->
+                <div class="usa-form-group" style="margin-bottom: 2rem;">
+                  <label class="usa-label" for="addrQuestion">What is your question? <span class="field-required">Required</span></label>
+                  <textarea class="usa-textarea" id="addrQuestion" name="addrQuestion" rows="3" maxlength="500"></textarea>
+                  <div style="text-align: right; font-size: 1.4rem; color: #71767a; margin-top: 0.5rem;">
+                    <span id="addrQuestionCounter">500 of 500 remaining</span>
+                  </div>
+                </div>
+
+                <!-- Minimum Field-Sets Section -->
+                <div style="background-color: #fff; padding: 2.4rem; border: 1px solid #dfe1e2; border-radius: 0.5rem; margin-bottom: 2rem;">
+                  <div class="usa-form-group">
+                    <label class="usa-label" for="addrMinFieldSets">Set the MINIMUM number of field-sets required for this application (0 indicates the question is optional) <span class="field-required">Required</span></label>
+                    <select class="usa-select" id="addrMinFieldSets" name="addrMinFieldSets">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Field Set Selections Section -->
+                <div style="background-color: #fff; padding: 2.4rem; border: 1px solid #dfe1e2; border-radius: 0.5rem; margin-bottom: 2rem;">
+                  <h3 style="font-size: 1.8rem; margin-bottom: 1rem; font-weight: 700;">Field Set Selections</h3>
+                  <p style="font-size: 1.6rem; margin-bottom: 1.5rem;">Choose your repeatable fields from the list provided below.</p>
+
+                  <!-- Business Information -->
+                  <h4 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight: 700;">Business Information</h4>
+
+                  <!-- Grid Layout - Business Information -->
+                  <div style="display: grid; grid-template-columns: 60% 20% 20%; row-gap: 4rem; column-gap: 2rem; align-items: center; margin-bottom: 2rem;">
+                    <!-- Headers -->
+                    <div style="font-weight: 700; font-size: 1.6rem;">Title</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Displayed</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Required</div>
+
+                    <!-- Business Name Row -->
+                    <div style="font-size: 1.6rem;">Business Name</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrBusinessNameDisplayed" type="checkbox" name="addrBusinessNameDisplayed">
+                      <label class="usa-checkbox__label" for="addrBusinessNameDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrBusinessNameRequired" type="checkbox" name="addrBusinessNameRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrBusinessNameRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Position/Job Title Row -->
+                    <div style="font-size: 1.6rem;">Position/Job Title</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrPositionDisplayed" type="checkbox" name="addrPositionDisplayed">
+                      <label class="usa-checkbox__label" for="addrPositionDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrPositionRequired" type="checkbox" name="addrPositionRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrPositionRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Branch Name/Number Row -->
+                    <div style="font-size: 1.6rem;">Branch Name/Number</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrBranchDisplayed" type="checkbox" name="addrBranchDisplayed">
+                      <label class="usa-checkbox__label" for="addrBranchDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrBranchRequired" type="checkbox" name="addrBranchRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrBranchRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Doing Business As Row -->
+                    <div style="font-size: 1.6rem;">Doing Business As</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrDbaDisplayed" type="checkbox" name="addrDbaDisplayed">
+                      <label class="usa-checkbox__label" for="addrDbaDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrDbaRequired" type="checkbox" name="addrDbaRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrDbaRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Date Row -->
+                    <div style="font-size: 1.6rem;">Date</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrDateDisplayed" type="checkbox" name="addrDateDisplayed">
+                      <label class="usa-checkbox__label" for="addrDateDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrDateRequired" type="checkbox" name="addrDateRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrDateRequired" style="margin: 0;"></label>
+                    </div>
+                  </div>
+
+                  <!-- Personal Information -->
+                  <h4 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight: 700;">Personal Information</h4>
+
+                  <!-- Grid Layout - Personal Information -->
+                  <div style="display: grid; grid-template-columns: 60% 20% 20%; row-gap: 4rem; column-gap: 2rem; align-items: center; margin-bottom: 2rem;">
+                    <!-- Headers -->
+                    <div style="font-weight: 700; font-size: 1.6rem;">Title</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Displayed</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Required</div>
+
+                    <!-- Prefix Row -->
+                    <div style="font-size: 1.6rem;">Prefix</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrPrefixDisplayed" type="checkbox" name="addrPrefixDisplayed">
+                      <label class="usa-checkbox__label" for="addrPrefixDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrPrefixRequired" type="checkbox" name="addrPrefixRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrPrefixRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- First Name Row -->
+                    <div style="font-size: 1.6rem;">First Name</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrFirstNameDisplayed" type="checkbox" name="addrFirstNameDisplayed">
+                      <label class="usa-checkbox__label" for="addrFirstNameDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrFirstNameRequired" type="checkbox" name="addrFirstNameRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrFirstNameRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Middle Name Row -->
+                    <div style="font-size: 1.6rem;">Middle Name</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrMiddleNameDisplayed" type="checkbox" name="addrMiddleNameDisplayed">
+                      <label class="usa-checkbox__label" for="addrMiddleNameDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrMiddleNameRequired" type="checkbox" name="addrMiddleNameRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrMiddleNameRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Last Name Row -->
+                    <div style="font-size: 1.6rem;">Last Name</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrLastNameDisplayed" type="checkbox" name="addrLastNameDisplayed">
+                      <label class="usa-checkbox__label" for="addrLastNameDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrLastNameRequired" type="checkbox" name="addrLastNameRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrLastNameRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Suffix Row -->
+                    <div style="font-size: 1.6rem;">Suffix</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrSuffixDisplayed" type="checkbox" name="addrSuffixDisplayed">
+                      <label class="usa-checkbox__label" for="addrSuffixDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrSuffixRequired" type="checkbox" name="addrSuffixRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrSuffixRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Maiden Name Row -->
+                    <div style="font-size: 1.6rem;">Maiden Name</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrMaidenNameDisplayed" type="checkbox" name="addrMaidenNameDisplayed">
+                      <label class="usa-checkbox__label" for="addrMaidenNameDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrMaidenNameRequired" type="checkbox" name="addrMaidenNameRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrMaidenNameRequired" style="margin: 0;"></label>
+                    </div>
+                  </div>
+
+                  <!-- ID Information -->
+                  <h4 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight: 700;">ID Information</h4>
+
+                  <!-- Grid Layout - ID Information -->
+                  <div style="display: grid; grid-template-columns: 60% 20% 20%; row-gap: 4rem; column-gap: 2rem; align-items: center; margin-bottom: 2rem;">
+                    <!-- Headers -->
+                    <div style="font-weight: 700; font-size: 1.6rem;">Title</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Displayed</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Required</div>
+
+                    <!-- Date of Birth Row -->
+                    <div style="font-size: 1.6rem;">Date of Birth</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrDobDisplayed" type="checkbox" name="addrDobDisplayed">
+                      <label class="usa-checkbox__label" for="addrDobDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrDobRequired" type="checkbox" name="addrDobRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrDobRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Social Security Number Row -->
+                    <div style="font-size: 1.6rem;">Social Security Number</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrSsnDisplayed" type="checkbox" name="addrSsnDisplayed">
+                      <label class="usa-checkbox__label" for="addrSsnDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrSsnRequired" type="checkbox" name="addrSsnRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrSsnRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Alias Row -->
+                    <div style="font-size: 1.6rem;">Alias</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrAliasDisplayed" type="checkbox" name="addrAliasDisplayed">
+                      <label class="usa-checkbox__label" for="addrAliasDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrAliasRequired" type="checkbox" name="addrAliasRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrAliasRequired" style="margin: 0;"></label>
+                    </div>
+                  </div>
+
+                  <!-- Address Information -->
+                  <h4 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight: 700;">Address Information</h4>
+
+                  <!-- Grid Layout - Address Information -->
+                  <div style="display: grid; grid-template-columns: 60% 20% 20%; row-gap: 4rem; column-gap: 2rem; align-items: center; margin-bottom: 2rem;">
+                    <!-- Headers -->
+                    <div style="font-weight: 700; font-size: 1.6rem;">Title</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Displayed</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Required</div>
+
+                    <!-- Address Line 1 Row -->
+                    <div style="font-size: 1.6rem;">Address Line 1</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrLine1Displayed" type="checkbox" name="addrLine1Displayed">
+                      <label class="usa-checkbox__label" for="addrLine1Displayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrLine1Required" type="checkbox" name="addrLine1Required" disabled>
+                      <label class="usa-checkbox__label" for="addrLine1Required" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Address Line 2 Row -->
+                    <div style="font-size: 1.6rem;">Address Line 2</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrLine2Displayed" type="checkbox" name="addrLine2Displayed">
+                      <label class="usa-checkbox__label" for="addrLine2Displayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrLine2Required" type="checkbox" name="addrLine2Required" disabled>
+                      <label class="usa-checkbox__label" for="addrLine2Required" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- City/APO/DPO/FPO Row -->
+                    <div style="font-size: 1.6rem;">City/APO/DPO/FPO</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrCityDisplayed" type="checkbox" name="addrCityDisplayed">
+                      <label class="usa-checkbox__label" for="addrCityDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrCityRequired" type="checkbox" name="addrCityRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrCityRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- State Row -->
+                    <div style="font-size: 1.6rem;">State</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrStateDisplayed" type="checkbox" name="addrStateDisplayed">
+                      <label class="usa-checkbox__label" for="addrStateDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrStateRequired" type="checkbox" name="addrStateRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrStateRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Zip Code Row -->
+                    <div style="font-size: 1.6rem;">Zip Code</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrZipDisplayed" type="checkbox" name="addrZipDisplayed">
+                      <label class="usa-checkbox__label" for="addrZipDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrZipRequired" type="checkbox" name="addrZipRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrZipRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- County Row -->
+                    <div style="font-size: 1.6rem;">County</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrCountyDisplayed" type="checkbox" name="addrCountyDisplayed">
+                      <label class="usa-checkbox__label" for="addrCountyDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrCountyRequired" type="checkbox" name="addrCountyRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrCountyRequired" style="margin: 0;"></label>
+                    </div>
+                  </div>
+
+                  <!-- Contact Information -->
+                  <h4 style="font-size: 1.6rem; margin-bottom: 1rem; font-weight: 700;">Contact Information</h4>
+
+                  <!-- Grid Layout - Contact Information -->
+                  <div style="display: grid; grid-template-columns: 60% 20% 20%; row-gap: 4rem; column-gap: 2rem; align-items: center; margin-bottom: 2rem;">
+                    <!-- Headers -->
+                    <div style="font-weight: 700; font-size: 1.6rem;">Title</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Displayed</div>
+                    <div style="font-weight: 700; font-size: 1.6rem;">Required</div>
+
+                    <!-- Telephone Number Row -->
+                    <div style="font-size: 1.6rem;">Telephone Number</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrTelephoneDisplayed" type="checkbox" name="addrTelephoneDisplayed">
+                      <label class="usa-checkbox__label" for="addrTelephoneDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrTelephoneRequired" type="checkbox" name="addrTelephoneRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrTelephoneRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Alt. Telephone Number Row -->
+                    <div style="font-size: 1.6rem;">Alt. Telephone Number</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrAltTelephoneDisplayed" type="checkbox" name="addrAltTelephoneDisplayed">
+                      <label class="usa-checkbox__label" for="addrAltTelephoneDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrAltTelephoneRequired" type="checkbox" name="addrAltTelephoneRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrAltTelephoneRequired" style="margin: 0;"></label>
+                    </div>
+
+                    <!-- Email Address Row -->
+                    <div style="font-size: 1.6rem;">Email Address</div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrEmailDisplayed" type="checkbox" name="addrEmailDisplayed">
+                      <label class="usa-checkbox__label" for="addrEmailDisplayed" style="margin: 0;"></label>
+                    </div>
+                    <div>
+                      <input class="usa-checkbox__input" id="addrEmailRequired" type="checkbox" name="addrEmailRequired" disabled>
+                      <label class="usa-checkbox__label" for="addrEmailRequired" style="margin: 0;"></label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Instructions Text (shown when Instructions checkbox is checked) -->
+                <div id="addrInstructionsGroup" style="display: none; margin-bottom: 2rem;">
+                  <label class="usa-label" for="addrInstructionsText">Instructions <span class="field-required">Required</span></label>
+                  <div class="mock-editor">
+                    <div class="mock-editor__toolbar">
+                      <button type="button" class="mock-editor__btn" title="Bold"><strong>B</strong></button>
+                      <button type="button" class="mock-editor__btn" title="Italic"><em>I</em></button>
+                      <button type="button" class="mock-editor__btn" title="Underline"><u>U</u></button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Numbered List">1.</button>
+                      <button type="button" class="mock-editor__btn" title="Bullet List">•</button>
+                      <span class="mock-editor__separator">|</span>
+                      <button type="button" class="mock-editor__btn" title="Link">🔗</button>
+                    </div>
+                    <textarea class="mock-editor__textarea" id="addrInstructionsText" name="addrInstructionsText" rows="6" maxlength="3000"></textarea>
+                  </div>
+                </div>
+
+                <!-- Clear Button -->
+                <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                  <button type="button" class="usa-button usa-button--accent-cool" id="clearAddressButton">Clear</button>
+                </div>
+              </div>
+
             </fieldset>
           </div>
 
@@ -645,6 +1206,10 @@
           populateAcknowledgementForEdit(questionData);
         } else if (questionData.questionType === 'dt' || questionData.type === 'dt') {
           populateDateForEdit(questionData);
+        } else if (questionData.questionType === 'mc' || questionData.type === 'mc') {
+          populateMultipleChoiceForEdit(questionData);
+        } else if (questionData.questionType === 'addr' || questionData.type === 'addr') {
+          populateAddressForEdit(questionData);
         }
       }
     });
@@ -695,6 +1260,130 @@
 
       // Set date range checkbox
       document.getElementById('dtDateRange').checked = questionData.dateRange === 'y';
+    }
+
+    function populateMultipleChoiceForEdit(questionData) {
+      // Set question type to Multiple Choice
+      document.getElementById('questionType').value = 'Multiple Choice';
+
+      // Show Multiple Choice section
+      document.getElementById('multipleChoiceSection').style.display = 'block';
+
+      // Populate basic fields
+      document.getElementById('mcQuestion').value = questionData.question || '';
+      document.getElementById('mcQuestionCounter').textContent = (500 - questionData.question.length) + ' of 500 remaining';
+      document.getElementById('mcRequired').checked = questionData.required === 'y';
+
+      // Handle instructions
+      if (questionData.instructions && questionData.instructions !== 'y' && questionData.instructions !== '') {
+        document.getElementById('mcInstructions').checked = true;
+        document.getElementById('mcInstructionsGroup').style.display = 'block';
+        document.getElementById('mcInstructionsText').value = questionData.instructions;
+      } else {
+        document.getElementById('mcInstructions').checked = false;
+        document.getElementById('mcInstructionsGroup').style.display = 'none';
+      }
+
+      // Populate choices
+      const choices = questionData.choices || [];
+      const container = document.getElementById('mcChoicesContainer');
+      container.innerHTML = ''; // Clear existing choices
+
+      choices.forEach((choice, index) => {
+        const choiceNumber = index + 1;
+        const showDelete = choices.length >= 3 ? 'block' : 'none';
+
+        const choiceDiv = document.createElement('div');
+        choiceDiv.className = 'usa-form-group';
+        choiceDiv.style.cssText = 'margin-bottom: 1.5rem; position: relative;';
+        choiceDiv.setAttribute('data-choice-number', choiceNumber);
+
+        choiceDiv.innerHTML = `
+          <label class="usa-label" for="mcChoice${choiceNumber}">Choice ${choiceNumber} <span class="field-required">Required</span></label>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <input class="usa-input" id="mcChoice${choiceNumber}" name="mcChoice${choiceNumber}" type="text" value="${escapeHtml(choice)}" style="flex: 1;">
+            <button type="button" class="mc-delete-btn" style="display: ${showDelete};" onclick="deleteMCChoice(${choiceNumber})">
+              <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+            </button>
+          </div>
+        `;
+
+        container.appendChild(choiceDiv);
+      });
+
+      // Update choice count
+      mcChoiceCount = choices.length;
+    }
+
+    function populateAddressForEdit(questionData) {
+      // Set question type to Addresses / Repeatable Fields
+      document.getElementById('questionType').value = 'Addresses / Repeatable Fields';
+
+      // Show Address section
+      document.getElementById('addressSection').style.display = 'block';
+
+      // Populate basic fields
+      document.getElementById('addrQuestion').value = questionData.question || '';
+      document.getElementById('addrQuestionCounter').textContent = (500 - questionData.question.length) + ' of 500 remaining';
+
+      // Handle instructions
+      if (questionData.instructions && questionData.instructions !== 'y' && questionData.instructions !== '') {
+        document.getElementById('addrInstructions').checked = true;
+        document.getElementById('addrInstructionsGroup').style.display = 'block';
+        document.getElementById('addrInstructionsText').value = questionData.instructions;
+      } else {
+        document.getElementById('addrInstructions').checked = false;
+        document.getElementById('addrInstructionsGroup').style.display = 'none';
+      }
+
+      // Set minimum field-sets
+      document.getElementById('addrMinFieldSets').value = questionData.minFieldSets || '0';
+
+      // Map of field names to checkbox IDs
+      const fieldMap = {
+        'Business Name': { displayed: 'addrBusinessNameDisplayed', required: 'addrBusinessNameRequired' },
+        'Position/Job Title': { displayed: 'addrPositionDisplayed', required: 'addrPositionRequired' },
+        'Branch Name/Number': { displayed: 'addrBranchDisplayed', required: 'addrBranchRequired' },
+        'Doing Business As': { displayed: 'addrDbaDisplayed', required: 'addrDbaRequired' },
+        'Date': { displayed: 'addrDateDisplayed', required: 'addrDateRequired' },
+        'Prefix': { displayed: 'addrPrefixDisplayed', required: 'addrPrefixRequired' },
+        'First Name': { displayed: 'addrFirstNameDisplayed', required: 'addrFirstNameRequired' },
+        'Middle Name': { displayed: 'addrMiddleNameDisplayed', required: 'addrMiddleNameRequired' },
+        'Last Name': { displayed: 'addrLastNameDisplayed', required: 'addrLastNameRequired' },
+        'Suffix': { displayed: 'addrSuffixDisplayed', required: 'addrSuffixRequired' },
+        'Maiden Name': { displayed: 'addrMaidenNameDisplayed', required: 'addrMaidenNameRequired' },
+        'Date of Birth': { displayed: 'addrDobDisplayed', required: 'addrDobRequired' },
+        'Social Security Number': { displayed: 'addrSsnDisplayed', required: 'addrSsnRequired' },
+        'Alias': { displayed: 'addrAliasDisplayed', required: 'addrAliasRequired' },
+        'Address Line 1': { displayed: 'addrLine1Displayed', required: 'addrLine1Required' },
+        'Address Line 2': { displayed: 'addrLine2Displayed', required: 'addrLine2Required' },
+        'City/APO/DPO/FPO': { displayed: 'addrCityDisplayed', required: 'addrCityRequired' },
+        'State': { displayed: 'addrStateDisplayed', required: 'addrStateRequired' },
+        'Zip Code': { displayed: 'addrZipDisplayed', required: 'addrZipRequired' },
+        'County': { displayed: 'addrCountyDisplayed', required: 'addrCountyRequired' },
+        'Telephone Number': { displayed: 'addrTelephoneDisplayed', required: 'addrTelephoneRequired' },
+        'Alt. Telephone Number': { displayed: 'addrAltTelephoneDisplayed', required: 'addrAltTelephoneRequired' },
+        'Email Address': { displayed: 'addrEmailDisplayed', required: 'addrEmailRequired' }
+      };
+
+      // Restore field selections
+      const fields = questionData.fields || [];
+      fields.forEach(field => {
+        const mapping = fieldMap[field.name];
+        if (mapping) {
+          // Check the Displayed checkbox
+          const displayedCheckbox = document.getElementById(mapping.displayed);
+          const requiredCheckbox = document.getElementById(mapping.required);
+
+          if (displayedCheckbox) {
+            displayedCheckbox.checked = true;
+            // Enable the Required checkbox since Displayed is checked
+            requiredCheckbox.disabled = false;
+            // Check Required if it was required
+            requiredCheckbox.checked = field.required === 'y';
+          }
+        }
+      });
     }
 
     function populateYesNoForEdit(questionData) {
@@ -795,6 +1484,9 @@
       const yesNoSection = document.getElementById('yesNoSection');
       const acknowledgementSection = document.getElementById('acknowledgementSection');
       const dateSection = document.getElementById('dateSection');
+      const multipleChoiceSection = document.getElementById('multipleChoiceSection');
+      const tableSection = document.getElementById('tableSection');
+      const addressSection = document.getElementById('addressSection');
 
       // Hide all sections first
       formBuilderSection.style.display = 'none';
@@ -802,6 +1494,9 @@
       yesNoSection.style.display = 'none';
       acknowledgementSection.style.display = 'none';
       dateSection.style.display = 'none';
+      multipleChoiceSection.style.display = 'none';
+      tableSection.style.display = 'none';
+      addressSection.style.display = 'none';
 
       // Show the appropriate section
       if (this.value === 'Form Builder') {
@@ -814,6 +1509,12 @@
         acknowledgementSection.style.display = 'block';
       } else if (this.value === 'Date / Date Range') {
         dateSection.style.display = 'block';
+      } else if (this.value === 'Multiple Choice') {
+        multipleChoiceSection.style.display = 'block';
+      } else if (this.value === 'Table') {
+        tableSection.style.display = 'block';
+      } else if (this.value === 'Addresses / Repeatable Fields') {
+        addressSection.style.display = 'block';
       }
     });
 
@@ -916,6 +1617,315 @@
       }
     });
 
+    // Multiple Choice Question Builder functionality
+
+    // Character counter for multiple choice question field
+    const mcQuestionField = document.getElementById('mcQuestion');
+    const mcQuestionCounter = document.getElementById('mcQuestionCounter');
+
+    mcQuestionField.addEventListener('input', function() {
+      const remaining = 500 - this.value.length;
+      mcQuestionCounter.textContent = `${remaining} of 500 remaining`;
+    });
+
+    // Show/hide instructions textarea for Multiple Choice
+    document.getElementById('mcInstructions').addEventListener('change', function() {
+      const instructionsGroup = document.getElementById('mcInstructionsGroup');
+      if (this.checked) {
+        instructionsGroup.style.display = 'block';
+      } else {
+        instructionsGroup.style.display = 'none';
+        document.getElementById('mcInstructionsText').value = '';
+      }
+    });
+
+    // Table Question Builder functionality
+
+    // Character counter for table question field
+    const tblQuestionField = document.getElementById('tblQuestion');
+    const tblQuestionCounter = document.getElementById('tblQuestionCounter');
+
+    tblQuestionField.addEventListener('input', function() {
+      const remaining = 500 - this.value.length;
+      tblQuestionCounter.textContent = `${remaining} of 500 remaining`;
+    });
+
+    // Show/hide instructions textarea for Table
+    document.getElementById('tblInstructions').addEventListener('change', function() {
+      const instructionsGroup = document.getElementById('tblInstructionsGroup');
+      if (this.checked) {
+        instructionsGroup.style.display = 'block';
+      } else {
+        instructionsGroup.style.display = 'none';
+        document.getElementById('tblInstructionsText').value = '';
+      }
+    });
+
+    // Track current header count for Table
+    let tblHeaderCount = 2;
+
+    // Add Header button handler
+    document.getElementById('addTblHeaderButton').addEventListener('click', function() {
+      if (tblHeaderCount >= 6) {
+        alert('Maximum 6 headers allowed.');
+        return;
+      }
+
+      tblHeaderCount++;
+      const container = document.getElementById('tblHeadersContainer');
+
+      const headerDiv = document.createElement('div');
+      headerDiv.className = 'section-indicator section-indicator--small';
+      headerDiv.style.cssText = 'background-color: #fff; padding: 2.4rem 5rem; border: 1px solid #dfe1e2; border-radius: 0.5rem; margin-bottom: 1.5rem;';
+      headerDiv.setAttribute('data-section', tblHeaderCount);
+      headerDiv.setAttribute('data-header-number', tblHeaderCount);
+
+      headerDiv.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.8rem; font-weight: 700; margin: 0;">Header ${tblHeaderCount}</h3>
+          <button type="button" class="tbl-delete-header-btn" onclick="deleteTblHeader(${tblHeaderCount})">
+            <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+          </button>
+        </div>
+        <hr style="border: none; border-top: 1px solid #dfe1e2; margin-bottom: 2rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div class="usa-form-group">
+            <label class="usa-label" for="tblHeader${tblHeaderCount}">Header ${tblHeaderCount} <span class="field-required">Required</span></label>
+            <input class="usa-input" id="tblHeader${tblHeaderCount}" name="tblHeader${tblHeaderCount}" type="text">
+          </div>
+          <div class="usa-form-group">
+            <label class="usa-label" for="tblFormat${tblHeaderCount}">Column Format <span class="field-required">Required</span></label>
+            <select class="usa-select" id="tblFormat${tblHeaderCount}" name="tblFormat${tblHeaderCount}">
+              <option value="">Please Select</option>
+              <option value="alphanumeric">Alpha Numeric</option>
+              <option value="numeric">Numeric</option>
+              <option value="date">Date Field</option>
+            </select>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(headerDiv);
+
+      // Show delete buttons on all headers when we have 3 or more
+      if (tblHeaderCount >= 3) {
+        document.querySelectorAll('.tbl-delete-header-btn').forEach(btn => {
+          btn.style.display = 'block';
+        });
+      }
+
+      // Disable Add Header button at 6 headers
+      if (tblHeaderCount >= 6) {
+        this.disabled = true;
+      }
+    });
+
+    // Delete header function (global scope for onclick)
+    window.deleteTblHeader = function(headerNumber) {
+      const headerElements = document.querySelectorAll('#tblHeadersContainer [data-header-number]');
+
+      // Must have at least 2 headers
+      if (headerElements.length <= 2) {
+        alert('You must have at least 2 headers.');
+        return;
+      }
+
+      // Find and remove the header
+      const headerToRemove = document.querySelector(`#tblHeadersContainer [data-header-number="${headerNumber}"]`);
+      if (headerToRemove) {
+        headerToRemove.remove();
+        tblHeaderCount--;
+
+        // Renumber remaining headers
+        const remainingHeaders = document.querySelectorAll('#tblHeadersContainer [data-header-number]');
+        remainingHeaders.forEach((header, index) => {
+          const newNumber = index + 1;
+          header.setAttribute('data-section', newNumber);
+          header.setAttribute('data-header-number', newNumber);
+
+          const h3 = header.querySelector('h3');
+          const deleteBtn = header.querySelector('.tbl-delete-header-btn');
+          const headerInput = header.querySelector('input[id^="tblHeader"]');
+          const formatSelect = header.querySelector('select[id^="tblFormat"]');
+          const headerLabel = header.querySelector('label[for^="tblHeader"]');
+          const formatLabel = header.querySelector('label[for^="tblFormat"]');
+
+          h3.textContent = `Header ${newNumber}`;
+          deleteBtn.setAttribute('onclick', `deleteTblHeader(${newNumber})`);
+
+          headerInput.id = `tblHeader${newNumber}`;
+          headerInput.name = `tblHeader${newNumber}`;
+          headerLabel.setAttribute('for', `tblHeader${newNumber}`);
+          headerLabel.innerHTML = `Header ${newNumber} <span class="field-required">Required</span>`;
+
+          formatSelect.id = `tblFormat${newNumber}`;
+          formatSelect.name = `tblFormat${newNumber}`;
+          formatLabel.setAttribute('for', `tblFormat${newNumber}`);
+        });
+
+        // Update tblHeaderCount to match actual count
+        tblHeaderCount = remainingHeaders.length;
+
+        // Hide delete buttons if we're back to 2 headers
+        if (tblHeaderCount <= 2) {
+          document.querySelectorAll('.tbl-delete-header-btn').forEach(btn => {
+            btn.style.display = 'none';
+          });
+        }
+
+        // Re-enable Add Header button
+        const addButton = document.getElementById('addTblHeaderButton');
+        if (addButton) {
+          addButton.disabled = false;
+        }
+      }
+    };
+
+    // Address / Repeatable Fields Question Builder functionality
+
+    // Character counter for address question field
+    const addrQuestionField = document.getElementById('addrQuestion');
+    const addrQuestionCounter = document.getElementById('addrQuestionCounter');
+
+    addrQuestionField.addEventListener('input', function() {
+      const remaining = 500 - this.value.length;
+      addrQuestionCounter.textContent = `${remaining} of 500 remaining`;
+    });
+
+    // Show/hide instructions textarea for Address
+    document.getElementById('addrInstructions').addEventListener('change', function() {
+      const instructionsGroup = document.getElementById('addrInstructionsGroup');
+      if (this.checked) {
+        instructionsGroup.style.display = 'block';
+      } else {
+        instructionsGroup.style.display = 'none';
+        document.getElementById('addrInstructionsText').value = '';
+      }
+    });
+
+    // Helper function to link Displayed checkbox to Required checkbox
+    function linkDisplayedToRequired(displayedId, requiredId) {
+      const displayedCheckbox = document.getElementById(displayedId);
+      const requiredCheckbox = document.getElementById(requiredId);
+
+      displayedCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          requiredCheckbox.disabled = false;
+        } else {
+          requiredCheckbox.disabled = true;
+          requiredCheckbox.checked = false;
+        }
+      });
+    }
+
+    // Link all Displayed/Required checkbox pairs
+    linkDisplayedToRequired('addrBusinessNameDisplayed', 'addrBusinessNameRequired');
+    linkDisplayedToRequired('addrPositionDisplayed', 'addrPositionRequired');
+    linkDisplayedToRequired('addrBranchDisplayed', 'addrBranchRequired');
+    linkDisplayedToRequired('addrDbaDisplayed', 'addrDbaRequired');
+    linkDisplayedToRequired('addrDateDisplayed', 'addrDateRequired');
+    linkDisplayedToRequired('addrPrefixDisplayed', 'addrPrefixRequired');
+    linkDisplayedToRequired('addrFirstNameDisplayed', 'addrFirstNameRequired');
+    linkDisplayedToRequired('addrMiddleNameDisplayed', 'addrMiddleNameRequired');
+    linkDisplayedToRequired('addrLastNameDisplayed', 'addrLastNameRequired');
+    linkDisplayedToRequired('addrSuffixDisplayed', 'addrSuffixRequired');
+    linkDisplayedToRequired('addrMaidenNameDisplayed', 'addrMaidenNameRequired');
+    linkDisplayedToRequired('addrDobDisplayed', 'addrDobRequired');
+    linkDisplayedToRequired('addrSsnDisplayed', 'addrSsnRequired');
+    linkDisplayedToRequired('addrAliasDisplayed', 'addrAliasRequired');
+    linkDisplayedToRequired('addrLine1Displayed', 'addrLine1Required');
+    linkDisplayedToRequired('addrLine2Displayed', 'addrLine2Required');
+    linkDisplayedToRequired('addrCityDisplayed', 'addrCityRequired');
+    linkDisplayedToRequired('addrStateDisplayed', 'addrStateRequired');
+    linkDisplayedToRequired('addrZipDisplayed', 'addrZipRequired');
+    linkDisplayedToRequired('addrCountyDisplayed', 'addrCountyRequired');
+    linkDisplayedToRequired('addrTelephoneDisplayed', 'addrTelephoneRequired');
+    linkDisplayedToRequired('addrAltTelephoneDisplayed', 'addrAltTelephoneRequired');
+    linkDisplayedToRequired('addrEmailDisplayed', 'addrEmailRequired');
+
+    // Track current choice count for Multiple Choice
+    let mcChoiceCount = 2;
+
+    // Add Choice button handler
+    document.getElementById('addMCChoiceButton').addEventListener('click', function() {
+      if (mcChoiceCount >= 20) {
+        alert('Maximum 20 choices allowed.');
+        return;
+      }
+
+      mcChoiceCount++;
+      const container = document.getElementById('mcChoicesContainer');
+
+      const choiceDiv = document.createElement('div');
+      choiceDiv.className = 'usa-form-group';
+      choiceDiv.style.cssText = 'margin-bottom: 1.5rem; position: relative;';
+      choiceDiv.setAttribute('data-choice-number', mcChoiceCount);
+
+      choiceDiv.innerHTML = `
+        <label class="usa-label" for="mcChoice${mcChoiceCount}">Choice ${mcChoiceCount} <span class="field-required">Required</span></label>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <input class="usa-input" id="mcChoice${mcChoiceCount}" name="mcChoice${mcChoiceCount}" type="text" style="flex: 1;">
+          <button type="button" class="mc-delete-btn" onclick="deleteMCChoice(${mcChoiceCount})">
+            <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+          </button>
+        </div>
+      `;
+
+      container.appendChild(choiceDiv);
+
+      // Show delete buttons on all choices when we have 3 or more
+      if (mcChoiceCount >= 3) {
+        document.querySelectorAll('.mc-delete-btn').forEach(btn => {
+          btn.style.display = 'block';
+        });
+      }
+    });
+
+    // Delete choice function (global scope for onclick)
+    window.deleteMCChoice = function(choiceNumber) {
+      const choiceElements = document.querySelectorAll('#mcChoicesContainer [data-choice-number]');
+
+      // Must have at least 2 choices
+      if (choiceElements.length <= 2) {
+        alert('You must have at least 2 choices.');
+        return;
+      }
+
+      // Find and remove the choice
+      const choiceToRemove = document.querySelector(`#mcChoicesContainer [data-choice-number="${choiceNumber}"]`);
+      if (choiceToRemove) {
+        choiceToRemove.remove();
+        mcChoiceCount--;
+
+        // Renumber remaining choices
+        const remainingChoices = document.querySelectorAll('#mcChoicesContainer [data-choice-number]');
+        remainingChoices.forEach((choice, index) => {
+          const newNumber = index + 1;
+          choice.setAttribute('data-choice-number', newNumber);
+
+          const label = choice.querySelector('label');
+          const input = choice.querySelector('input');
+          const deleteBtn = choice.querySelector('.mc-delete-btn');
+
+          label.setAttribute('for', `mcChoice${newNumber}`);
+          label.innerHTML = `Choice ${newNumber} <span class="field-required">Required</span>`;
+          input.id = `mcChoice${newNumber}`;
+          input.name = `mcChoice${newNumber}`;
+          deleteBtn.setAttribute('onclick', `deleteMCChoice(${newNumber})`);
+        });
+
+        // Update mcChoiceCount to match actual count
+        mcChoiceCount = remainingChoices.length;
+
+        // Hide delete buttons if we're back to 2 choices
+        if (mcChoiceCount <= 2) {
+          document.querySelectorAll('.mc-delete-btn').forEach(btn => {
+            btn.style.display = 'none';
+          });
+        }
+      }
+    };
+
     // Show/hide Response Length or Format Options based on Format selection
     document.getElementById('ffFormat').addEventListener('change', function() {
       const responseLengthGroup = document.getElementById('ffResponseLengthGroup');
@@ -1016,6 +2026,161 @@
       // Reset to Question Type dropdown
       document.getElementById('questionType').value = '';
       document.getElementById('dateSection').style.display = 'none';
+    });
+
+    // Clear Multiple Choice button handler
+    document.getElementById('clearMultipleChoiceButton').addEventListener('click', function() {
+      // Reset question field
+      document.getElementById('mcQuestion').value = '';
+      document.getElementById('mcQuestionCounter').textContent = '500 of 500 remaining';
+      document.getElementById('mcRequired').checked = true;
+      document.getElementById('mcInstructions').checked = false;
+      document.getElementById('mcInstructionsGroup').style.display = 'none';
+      document.getElementById('mcInstructionsText').value = '';
+
+      // Reset choices to just 2
+      const container = document.getElementById('mcChoicesContainer');
+      container.innerHTML = `
+        <!-- Choice 1 -->
+        <div class="usa-form-group" style="margin-bottom: 1.5rem; position: relative;" data-choice-number="1">
+          <label class="usa-label" for="mcChoice1">Choice 1 <span class="field-required">Required</span></label>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <input class="usa-input" id="mcChoice1" name="mcChoice1" type="text" style="flex: 1;">
+            <button type="button" class="mc-delete-btn" style="display: none;" onclick="deleteMCChoice(1)">
+              <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+            </button>
+          </div>
+        </div>
+
+        <!-- Choice 2 -->
+        <div class="usa-form-group" style="margin-bottom: 1.5rem; position: relative;" data-choice-number="2">
+          <label class="usa-label" for="mcChoice2">Choice 2 <span class="field-required">Required</span></label>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <input class="usa-input" id="mcChoice2" name="mcChoice2" type="text" style="flex: 1;">
+            <button type="button" class="mc-delete-btn" style="display: none;" onclick="deleteMCChoice(2)">
+              <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+            </button>
+          </div>
+        </div>
+      `;
+      mcChoiceCount = 2;
+
+      // Reset edit mode flags
+      isEditMode = false;
+      editQuestionIndex = null;
+
+      // Reset to Question Type dropdown
+      document.getElementById('questionType').value = '';
+      document.getElementById('multipleChoiceSection').style.display = 'none';
+    });
+
+    // Clear Table button handler
+    document.getElementById('clearTableButton').addEventListener('click', function() {
+      // Reset question field
+      document.getElementById('tblQuestion').value = '';
+      document.getElementById('tblQuestionCounter').textContent = '500 of 500 remaining';
+      document.getElementById('tblInstructions').checked = false;
+      document.getElementById('tblInstructionsGroup').style.display = 'none';
+      document.getElementById('tblInstructionsText').value = '';
+
+      // Reset required rows
+      document.getElementById('tblRequiredRows').value = '0';
+
+      // Reset headers to just 2
+      const container = document.getElementById('tblHeadersContainer');
+      container.innerHTML = `
+        <!-- Header 1 -->
+        <div class="section-indicator section-indicator--small" data-section="1" data-header-number="1" style="background-color: #fff; padding: 2.4rem 5rem; border: 1px solid #dfe1e2; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.8rem; font-weight: 700; margin: 0;">Header 1</h3>
+            <button type="button" class="tbl-delete-header-btn" style="display: none;" onclick="deleteTblHeader(1)">
+              <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+            </button>
+          </div>
+          <hr style="border: none; border-top: 1px solid #dfe1e2; margin-bottom: 2rem;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div class="usa-form-group">
+              <label class="usa-label" for="tblHeader1">Header 1 <span class="field-required">Required</span></label>
+              <input class="usa-input" id="tblHeader1" name="tblHeader1" type="text">
+            </div>
+            <div class="usa-form-group">
+              <label class="usa-label" for="tblFormat1">Column Format <span class="field-required">Required</span></label>
+              <select class="usa-select" id="tblFormat1" name="tblFormat1">
+                <option value="">Please Select</option>
+                <option value="alphanumeric">Alpha Numeric</option>
+                <option value="numeric">Numeric</option>
+                <option value="date">Date Field</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header 2 -->
+        <div class="section-indicator section-indicator--small" data-section="2" data-header-number="2" style="background-color: #fff; padding: 2.4rem 5rem; border: 1px solid #dfe1e2; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.8rem; font-weight: 700; margin: 0;">Header 2</h3>
+            <button type="button" class="tbl-delete-header-btn" style="display: none;" onclick="deleteTblHeader(2)">
+              <img src="assets/icon-delete.png" alt="Delete" style="width: 24px; height: 24px;">
+            </button>
+          </div>
+          <hr style="border: none; border-top: 1px solid #dfe1e2; margin-bottom: 2rem;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div class="usa-form-group">
+              <label class="usa-label" for="tblHeader2">Header 2 <span class="field-required">Required</span></label>
+              <input class="usa-input" id="tblHeader2" name="tblHeader2" type="text">
+            </div>
+            <div class="usa-form-group">
+              <label class="usa-label" for="tblFormat2">Column Format <span class="field-required">Required</span></label>
+              <select class="usa-select" id="tblFormat2" name="tblFormat2">
+                <option value="">Please Select</option>
+                <option value="alphanumeric">Alpha Numeric</option>
+                <option value="numeric">Numeric</option>
+                <option value="date">Date Field</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      `;
+      tblHeaderCount = 2;
+
+      // Re-enable Add Header button
+      document.getElementById('addTblHeaderButton').disabled = false;
+
+      // Reset edit mode flags
+      isEditMode = false;
+      editQuestionIndex = null;
+
+      // Reset to Question Type dropdown
+      document.getElementById('questionType').value = '';
+      document.getElementById('tableSection').style.display = 'none';
+    });
+
+    // Clear Address button handler
+    document.getElementById('clearAddressButton').addEventListener('click', function() {
+      // Reset question field
+      document.getElementById('addrQuestion').value = '';
+      document.getElementById('addrQuestionCounter').textContent = '500 of 500 remaining';
+      document.getElementById('addrInstructions').checked = false;
+      document.getElementById('addrInstructionsGroup').style.display = 'none';
+      document.getElementById('addrInstructionsText').value = '';
+
+      // Reset minimum field-sets
+      document.getElementById('addrMinFieldSets').value = '0';
+
+      // Uncheck all displayed and required checkboxes
+      document.querySelectorAll('[id^="addr"][id$="Displayed"]').forEach(cb => cb.checked = false);
+      document.querySelectorAll('[id^="addr"][id$="Required"]').forEach(cb => {
+        cb.checked = false;
+        cb.disabled = true;
+      });
+
+      // Reset edit mode flags
+      isEditMode = false;
+      editQuestionIndex = null;
+
+      // Reset to Question Type dropdown
+      document.getElementById('questionType').value = '';
+      document.getElementById('addressSection').style.display = 'none';
     });
 
     // Clear Yes/No button handler
@@ -1149,6 +2314,225 @@
         required: document.getElementById('dtRequired').checked ? 'y' : 'n',
         instructions: hasInstructions ? document.getElementById('dtInstructionsText').value.trim() : '',
         dateRange: isDateRange ? 'y' : 'n'
+      };
+
+      return questionObj;
+    }
+
+    // Function to validate and build multiple choice question
+    function buildMultipleChoiceQuestion() {
+      // Validate required fields
+      const question = document.getElementById('mcQuestion').value.trim();
+      const hasInstructions = document.getElementById('mcInstructions').checked;
+
+      if (!question) {
+        alert('Please enter a question.');
+        return null;
+      }
+
+      // Validate instructions if checkbox is checked
+      if (hasInstructions) {
+        const instructionsText = document.getElementById('mcInstructionsText').value.trim();
+        if (!instructionsText) {
+          alert('Please enter instructions text.');
+          return null;
+        }
+        if (instructionsText.length > 3000) {
+          alert('Instructions must be 3000 characters or less.');
+          return null;
+        }
+      }
+
+      // Collect all choices
+      const choices = [];
+      const choiceElements = document.querySelectorAll('#mcChoicesContainer [data-choice-number]');
+
+      for (let i = 0; i < choiceElements.length; i++) {
+        const input = choiceElements[i].querySelector('input');
+        const choiceText = input.value.trim();
+
+        if (!choiceText) {
+          alert(`Please enter text for Choice ${i + 1}.`);
+          return null;
+        }
+
+        choices.push(choiceText);
+      }
+
+      // Must have at least 2 choices
+      if (choices.length < 2) {
+        alert('You must have at least 2 choices.');
+        return null;
+      }
+
+      // Build question object
+      const questionObj = {
+        type: 'mc',
+        questionType: 'mc',
+        question: question,
+        required: document.getElementById('mcRequired').checked ? 'y' : 'n',
+        instructions: hasInstructions ? document.getElementById('mcInstructionsText').value.trim() : '',
+        choices: choices
+      };
+
+      return questionObj;
+    }
+
+    // Function to validate and build table question
+    function buildTableQuestion() {
+      // Validate required fields
+      const question = document.getElementById('tblQuestion').value.trim();
+      const hasInstructions = document.getElementById('tblInstructions').checked;
+
+      if (!question) {
+        alert('Please enter a question.');
+        return null;
+      }
+
+      // Validate instructions if checkbox is checked
+      if (hasInstructions) {
+        const instructionsText = document.getElementById('tblInstructionsText').value.trim();
+        if (!instructionsText) {
+          alert('Please enter instructions text.');
+          return null;
+        }
+        if (instructionsText.length > 3000) {
+          alert('Instructions must be 3000 characters or less.');
+          return null;
+        }
+      }
+
+      // Collect all headers
+      const headers = [];
+      const headerElements = document.querySelectorAll('#tblHeadersContainer [data-header-number]');
+
+      for (let i = 0; i < headerElements.length; i++) {
+        const headerNumber = i + 1;
+        const headerTitle = document.getElementById(`tblHeader${headerNumber}`).value.trim();
+        const headerFormat = document.getElementById(`tblFormat${headerNumber}`).value;
+
+        if (!headerTitle) {
+          alert(`Please enter Header ${headerNumber}.`);
+          return null;
+        }
+
+        if (!headerFormat) {
+          alert(`Please select Column Format for Header ${headerNumber}.`);
+          return null;
+        }
+
+        headers.push({
+          title: headerTitle,
+          format: headerFormat
+        });
+      }
+
+      // Get required rows
+      const requiredRows = document.getElementById('tblRequiredRows').value;
+
+      // Build question object
+      const questionObj = {
+        type: 'tbl',
+        questionType: 'tbl',
+        question: question,
+        instructions: hasInstructions ? document.getElementById('tblInstructionsText').value.trim() : '',
+        headers: headers,
+        requiredRows: requiredRows
+      };
+
+      return questionObj;
+    }
+
+    // Function to validate and build address/repeatable fields question
+    function buildAddressQuestion() {
+      // Validate required fields
+      const question = document.getElementById('addrQuestion').value.trim();
+      const hasInstructions = document.getElementById('addrInstructions').checked;
+
+      if (!question) {
+        alert('Please enter a question.');
+        return null;
+      }
+
+      // Validate instructions if checkbox is checked
+      if (hasInstructions) {
+        const instructionsText = document.getElementById('addrInstructionsText').value.trim();
+        if (!instructionsText) {
+          alert('Please enter instructions text.');
+          return null;
+        }
+        if (instructionsText.length > 3000) {
+          alert('Instructions must be 3000 characters or less.');
+          return null;
+        }
+      }
+
+      // Get minimum field-sets
+      const minFieldSets = document.getElementById('addrMinFieldSets').value;
+
+      // Collect all selected fields
+      const fields = [];
+
+      // Helper to add field if displayed
+      function addFieldIfDisplayed(fieldName, displayedId, requiredId) {
+        const displayed = document.getElementById(displayedId).checked;
+        if (displayed) {
+          const required = document.getElementById(requiredId).checked;
+          fields.push({
+            name: fieldName,
+            required: required ? 'y' : 'n'
+          });
+        }
+      }
+
+      // Business Information
+      addFieldIfDisplayed('Business Name', 'addrBusinessNameDisplayed', 'addrBusinessNameRequired');
+      addFieldIfDisplayed('Position/Job Title', 'addrPositionDisplayed', 'addrPositionRequired');
+      addFieldIfDisplayed('Branch Name/Number', 'addrBranchDisplayed', 'addrBranchRequired');
+      addFieldIfDisplayed('Doing Business As', 'addrDbaDisplayed', 'addrDbaRequired');
+      addFieldIfDisplayed('Date', 'addrDateDisplayed', 'addrDateRequired');
+
+      // Personal Information
+      addFieldIfDisplayed('Prefix', 'addrPrefixDisplayed', 'addrPrefixRequired');
+      addFieldIfDisplayed('First Name', 'addrFirstNameDisplayed', 'addrFirstNameRequired');
+      addFieldIfDisplayed('Middle Name', 'addrMiddleNameDisplayed', 'addrMiddleNameRequired');
+      addFieldIfDisplayed('Last Name', 'addrLastNameDisplayed', 'addrLastNameRequired');
+      addFieldIfDisplayed('Suffix', 'addrSuffixDisplayed', 'addrSuffixRequired');
+      addFieldIfDisplayed('Maiden Name', 'addrMaidenNameDisplayed', 'addrMaidenNameRequired');
+
+      // ID Information
+      addFieldIfDisplayed('Date of Birth', 'addrDobDisplayed', 'addrDobRequired');
+      addFieldIfDisplayed('Social Security Number', 'addrSsnDisplayed', 'addrSsnRequired');
+      addFieldIfDisplayed('Alias', 'addrAliasDisplayed', 'addrAliasRequired');
+
+      // Address Information
+      addFieldIfDisplayed('Address Line 1', 'addrLine1Displayed', 'addrLine1Required');
+      addFieldIfDisplayed('Address Line 2', 'addrLine2Displayed', 'addrLine2Required');
+      addFieldIfDisplayed('City/APO/DPO/FPO', 'addrCityDisplayed', 'addrCityRequired');
+      addFieldIfDisplayed('State', 'addrStateDisplayed', 'addrStateRequired');
+      addFieldIfDisplayed('Zip Code', 'addrZipDisplayed', 'addrZipRequired');
+      addFieldIfDisplayed('County', 'addrCountyDisplayed', 'addrCountyRequired');
+
+      // Contact Information
+      addFieldIfDisplayed('Telephone Number', 'addrTelephoneDisplayed', 'addrTelephoneRequired');
+      addFieldIfDisplayed('Alt. Telephone Number', 'addrAltTelephoneDisplayed', 'addrAltTelephoneRequired');
+      addFieldIfDisplayed('Email Address', 'addrEmailDisplayed', 'addrEmailRequired');
+
+      // Must have at least one field selected
+      if (fields.length === 0) {
+        alert('Please select at least one field to display.');
+        return null;
+      }
+
+      // Build question object
+      const questionObj = {
+        type: 'addr',
+        questionType: 'addr',
+        question: question,
+        required: minFieldSets === '0' ? 'n' : 'y',
+        instructions: hasInstructions ? document.getElementById('addrInstructionsText').value.trim() : '',
+        minFieldSets: minFieldSets,
+        fields: fields
       };
 
       return questionObj;
@@ -1352,6 +2736,9 @@
       const yesNoSection = document.getElementById('yesNoSection');
       const acknowledgementSection = document.getElementById('acknowledgementSection');
       const dateSection = document.getElementById('dateSection');
+      const multipleChoiceSection = document.getElementById('multipleChoiceSection');
+      const tableSection = document.getElementById('tableSection');
+      const addressSection = document.getElementById('addressSection');
       const questionType = document.getElementById('questionType').value;
 
       let builtQuestion = null;
@@ -1383,6 +2770,30 @@
       // Try to build Date question
       if (questionType === 'Date / Date Range' && dateSection.style.display !== 'none') {
         builtQuestion = buildDateQuestion();
+        if (!builtQuestion) {
+          return; // Validation failed
+        }
+      }
+
+      // Try to build Multiple Choice question
+      if (questionType === 'Multiple Choice' && multipleChoiceSection.style.display !== 'none') {
+        builtQuestion = buildMultipleChoiceQuestion();
+        if (!builtQuestion) {
+          return; // Validation failed
+        }
+      }
+
+      // Try to build Table question
+      if (questionType === 'Table' && tableSection.style.display !== 'none') {
+        builtQuestion = buildTableQuestion();
+        if (!builtQuestion) {
+          return; // Validation failed
+        }
+      }
+
+      // Try to build Address question
+      if (questionType === 'Addresses / Repeatable Fields' && addressSection.style.display !== 'none') {
+        builtQuestion = buildAddressQuestion();
         if (!builtQuestion) {
           return; // Validation failed
         }
@@ -1446,7 +2857,42 @@
 
     // Main preview button
     document.getElementById('mainPreviewButton').addEventListener('click', function() {
-      showPreviewPage(parsedQuestions);
+      // Check if user is building a question in the UI
+      const freeFormSection = document.getElementById('freeFormSection');
+      const yesNoSection = document.getElementById('yesNoSection');
+      const acknowledgementSection = document.getElementById('acknowledgementSection');
+      const dateSection = document.getElementById('dateSection');
+      const multipleChoiceSection = document.getElementById('multipleChoiceSection');
+      const tableSection = document.getElementById('tableSection');
+      const addressSection = document.getElementById('addressSection');
+      const questionType = document.getElementById('questionType').value;
+
+      let questionsToPreview = [...parsedQuestions]; // Copy existing questions
+      let currentQuestion = null;
+
+      // Try to build current question being edited
+      if (questionType === 'Free Form' && freeFormSection.style.display !== 'none') {
+        currentQuestion = buildFreeFormQuestion();
+      } else if (questionType === 'Yes/No; Either/Or' && yesNoSection.style.display !== 'none') {
+        currentQuestion = buildYesNoQuestion();
+      } else if (questionType === 'Acknowledgment' && acknowledgementSection.style.display !== 'none') {
+        currentQuestion = buildAcknowledgementQuestion();
+      } else if (questionType === 'Date / Date Range' && dateSection.style.display !== 'none') {
+        currentQuestion = buildDateQuestion();
+      } else if (questionType === 'Multiple Choice' && multipleChoiceSection.style.display !== 'none') {
+        currentQuestion = buildMultipleChoiceQuestion();
+      } else if (questionType === 'Table' && tableSection.style.display !== 'none') {
+        currentQuestion = buildTableQuestion();
+      } else if (questionType === 'Addresses / Repeatable Fields' && addressSection.style.display !== 'none') {
+        currentQuestion = buildAddressQuestion();
+      }
+
+      // If we built a question, add it to preview
+      if (currentQuestion) {
+        questionsToPreview.push(currentQuestion);
+      }
+
+      showPreviewPage(questionsToPreview);
     });
 
     // Close preview button
@@ -1481,8 +2927,14 @@
           result = parseACKLine(rawLine, rowNumber);
         } else if (questionType === "dt") {
           result = parseDTLine(rawLine, rowNumber);
+        } else if (questionType === "mc") {
+          result = parseMCLine(rawLine, rowNumber);
+        } else if (questionType === "addr") {
+          result = parseADDRLine(rawLine, rowNumber);
+        } else if (questionType === "tbl") {
+          result = parseTBLLine(rawLine, rowNumber);
         } else {
-          result = fail(rowNumber, `Unknown question type "${tokens[0]}". Supported types: ff, yn, ack, dt`);
+          result = fail(rowNumber, `Unknown question type "${tokens[0]}". Supported types: ff, yn, ack, dt, mc, addr, tbl`);
         }
 
         if (result.ok) {
@@ -1736,6 +3188,242 @@
     }
 
     /**
+     * Parse a single Multiple Choice line
+     */
+    function parseMCLine(line, rowNumber) {
+      const tokens = line.split("|").map(t => t.trim());
+
+      // Check for minimum fields
+      if (tokens.length < 4) {
+        return fail(rowNumber, "Too few fields for mc. Expected at least 4: mc | question | y/n | choices(a,b,c) | instructions");
+      }
+
+      // Validate type
+      const type = (tokens[0] || "").toLowerCase();
+      if (type !== "mc") {
+        return fail(rowNumber, `Unknown type "${tokens[0]}". Expected mc.`);
+      }
+
+      // Validate question text
+      const question = tokens[1] || "";
+      if (!question) {
+        return fail(rowNumber, "Question text is required for mc.");
+      }
+
+      // Validate and normalize required field (defaults to required/y)
+      const requiredRaw = (tokens[2] || "y").toLowerCase();
+      let required;
+      if (requiredRaw === "n" || requiredRaw === "no") {
+        required = "n";
+      } else if (requiredRaw === "y" || requiredRaw === "yes" || requiredRaw === "") {
+        required = "y";
+      } else {
+        return fail(rowNumber, "Required must be y or n.");
+      }
+
+      // Parse choices (comma-separated)
+      const choicesRaw = tokens[3] || "";
+      if (!choicesRaw) {
+        return fail(rowNumber, "Choices are required for mc. Format: choice1,choice2,choice3");
+      }
+
+      const choices = choicesRaw.split(',').map(c => c.trim()).filter(c => c);
+
+      if (choices.length < 2) {
+        return fail(rowNumber, "At least 2 choices are required for mc.");
+      }
+
+      // Instructions (optional, default to empty string)
+      const instructions = tokens[4] || "";
+
+      return {
+        ok: true,
+        data: {
+          type: "mc",
+          question,
+          required,
+          choices,
+          instructions,
+          rowNumber
+        }
+      };
+    }
+
+    /**
+     * Parse a single Address / Repeatable Fields line
+     */
+    function parseADDRLine(line, rowNumber) {
+      const tokens = line.split("|").map(t => t.trim());
+
+      // Check for minimum fields
+      if (tokens.length < 3) {
+        return fail(rowNumber, "Too few fields for addr. Expected at least 3: addr | question | field1:y/n,field2:y/n | instructions");
+      }
+
+      // Validate type
+      const type = (tokens[0] || "").toLowerCase();
+      if (type !== "addr") {
+        return fail(rowNumber, `Unknown type "${tokens[0]}". Expected addr.`);
+      }
+
+      // Validate question text
+      const question = tokens[1] || "";
+      if (!question) {
+        return fail(rowNumber, "Question text is required for addr.");
+      }
+
+      // Parse fields (format: fieldName:required,fieldName2:required)
+      const fieldsRaw = tokens[2] || "";
+      if (!fieldsRaw) {
+        return fail(rowNumber, "At least one field is required for addr. Format: Field Name:y,Another Field:n");
+      }
+
+      const fieldPairs = fieldsRaw.split(',').map(f => f.trim()).filter(f => f);
+      const fields = [];
+
+      for (const pair of fieldPairs) {
+        const parts = pair.split(':');
+        if (parts.length !== 2) {
+          return fail(rowNumber, `Invalid field format: "${pair}". Expected format: Field Name:y or Field Name:n`);
+        }
+
+        const fieldName = parts[0].trim();
+        const requiredRaw = parts[1].trim().toLowerCase();
+
+        if (!fieldName) {
+          return fail(rowNumber, "Field name cannot be empty.");
+        }
+
+        if (requiredRaw !== 'y' && requiredRaw !== 'n') {
+          return fail(rowNumber, `Field required must be y or n, got: "${requiredRaw}"`);
+        }
+
+        fields.push({
+          name: fieldName,
+          required: requiredRaw
+        });
+      }
+
+      if (fields.length === 0) {
+        return fail(rowNumber, "At least one field is required for addr.");
+      }
+
+      // Instructions (optional, default to empty string)
+      const instructions = tokens[3] || "";
+
+      // minFieldSets defaults to 0
+      const minFieldSets = "0";
+
+      return {
+        ok: true,
+        data: {
+          type: "addr",
+          question,
+          required: minFieldSets === '0' ? 'n' : 'y',
+          fields,
+          minFieldSets,
+          instructions,
+          rowNumber
+        }
+      };
+    }
+
+    /**
+     * Parse a single Table line
+     * Format: tbl | question | y/n | columns(Name,Age,Relationship) | rows(3) | instructions
+     */
+    function parseTBLLine(line, rowNumber) {
+      const tokens = line.split("|").map(t => t.trim());
+
+      // Check for minimum fields
+      if (tokens.length < 4) {
+        return fail(rowNumber, "Too few fields for tbl. Expected at least 4: tbl | question | y/n | columns(Name,Age,Relationship) | rows(3) | instructions");
+      }
+
+      // Validate type
+      const type = (tokens[0] || "").toLowerCase();
+      if (type !== "tbl") {
+        return fail(rowNumber, `Unknown type "${tokens[0]}". Expected tbl.`);
+      }
+
+      // Validate question text
+      const question = tokens[1] || "";
+      if (!question) {
+        return fail(rowNumber, "Question text is required for tbl.");
+      }
+
+      // Required field (y/n) - not really used for tables but kept for consistency
+      const requiredRaw = (tokens[2] || "n").toLowerCase();
+      let required;
+      if (requiredRaw === "n" || requiredRaw === "no") {
+        required = "n";
+      } else if (requiredRaw === "y" || requiredRaw === "yes" || requiredRaw === "") {
+        required = "y";
+      } else {
+        return fail(rowNumber, "Required must be y or n.");
+      }
+
+      // Parse columns (format: columns(Name,Age,Relationship))
+      const columnsRaw = tokens[3] || "";
+      if (!columnsRaw) {
+        return fail(rowNumber, "Columns are required for tbl. Format: columns(Name,Age,Relationship)");
+      }
+
+      // Extract column names from columns(...)
+      const columnsMatch = columnsRaw.match(/^columns\((.*)\)$/i);
+      if (!columnsMatch) {
+        return fail(rowNumber, "Invalid columns format. Expected: columns(Name,Age,Relationship)");
+      }
+
+      const columnNames = columnsMatch[1].split(',').map(c => c.trim()).filter(c => c);
+
+      if (columnNames.length === 0) {
+        return fail(rowNumber, "At least one column is required for tbl.");
+      }
+
+      if (columnNames.length > 6) {
+        return fail(rowNumber, "Maximum 6 columns allowed for tbl.");
+      }
+
+      // Build headers array with default format of alphanumeric
+      const headers = columnNames.map(name => ({
+        title: name,
+        format: 'alphanumeric'
+      }));
+
+      // Parse required rows (format: rows(3))
+      let requiredRows = "0";
+      if (tokens[4]) {
+        const rowsRaw = tokens[4];
+        const rowsMatch = rowsRaw.match(/^rows\((\d+)\)$/i);
+        if (!rowsMatch) {
+          return fail(rowNumber, "Invalid rows format. Expected: rows(3)");
+        }
+
+        requiredRows = rowsMatch[1];
+        const requiredRowsNum = parseInt(requiredRows, 10);
+        if (isNaN(requiredRowsNum) || requiredRowsNum < 0 || requiredRowsNum > 30) {
+          return fail(rowNumber, "Required rows must be a number between 0 and 30.");
+        }
+      }
+
+      // Instructions (optional, default to empty string)
+      const instructions = tokens[5] || "";
+
+      return {
+        ok: true,
+        data: {
+          type: "tbl",
+          question,
+          headers,
+          requiredRows: requiredRows,
+          instructions,
+          rowNumber
+        }
+      };
+    }
+
+    /**
      * Create error result
      */
     function fail(rowNumber, message) {
@@ -1936,6 +3624,198 @@
             <input class="usa-input" id="dt-${index}" name="dt-${index}" type="date" ${isRequired ? 'required' : ''}>
           `;
         }
+
+        fieldHtml += `</div>`;
+        return fieldHtml;
+      }
+
+      // Handle Multiple Choice questions
+      if (q.type === 'mc') {
+        let fieldHtml = `
+          <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
+        `;
+
+        // Add instructions if present (ABOVE the question label)
+        if (q.instructions) {
+          fieldHtml += `
+            <div style="margin-bottom: 1.6rem;">
+              <p style="margin: 0 0 0.4rem 0; font-weight: 700; font-size: 1.6rem;">Instructions</p>
+              <p style="margin: 0; font-size: 1.6rem; color: #71767a;">${escapeHtml(q.instructions)}</p>
+            </div>
+          `;
+        }
+
+        // Add label for multiple choice question
+        fieldHtml += `
+          <label class="usa-label">
+            ${escapeHtml(q.question)}
+            ${isRequired ? '<span class="field-required">Required</span>' : ''}
+          </label>
+        `;
+
+        // Render each choice as a radio button
+        q.choices.forEach((choice, choiceIndex) => {
+          fieldHtml += `
+            <div class="usa-radio">
+              <input class="usa-radio__input" id="mc-choice${choiceIndex}-${index}" type="radio" name="mc-${index}" value="${escapeHtml(choice)}" ${isRequired ? 'required' : ''}>
+              <label class="usa-radio__label" for="mc-choice${choiceIndex}-${index}">${escapeHtml(choice)}</label>
+            </div>
+          `;
+        });
+
+        fieldHtml += `</div>`;
+        return fieldHtml;
+      }
+
+      // Handle Address / Repeatable Fields questions
+      if (q.type === 'addr') {
+        let fieldHtml = `
+          <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
+        `;
+
+        // Add instructions if present (ABOVE the question label)
+        if (q.instructions) {
+          fieldHtml += `
+            <div style="margin-bottom: 1.6rem;">
+              <p style="margin: 0 0 0.4rem 0; font-weight: 700; font-size: 1.6rem;">Instructions</p>
+              <p style="margin: 0; font-size: 1.6rem; color: #71767a;">${escapeHtml(q.instructions)}</p>
+            </div>
+          `;
+        }
+
+        // Add question label
+        fieldHtml += `
+          <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">
+            ${escapeHtml(q.question)}
+            ${isRequired ? '<span class="field-required">Required</span>' : ''}
+          </h3>
+        `;
+
+        // Render each selected field
+        q.fields.forEach((field, fieldIndex) => {
+          const fieldRequired = field.required === 'y';
+          const fieldId = `addr-field-${index}-${fieldIndex}`;
+
+          fieldHtml += `
+            <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+              <label class="usa-label" for="${fieldId}">
+                ${escapeHtml(field.name)}
+                ${fieldRequired ? '<span class="field-required">Required</span>' : ''}
+              </label>
+              <input class="usa-input" id="${fieldId}" name="${fieldId}" type="text" ${fieldRequired ? 'required' : ''}>
+            </div>
+          `;
+        });
+
+        // Add buttons
+        fieldHtml += `
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button type="button" class="usa-button">Add</button>
+            <button type="button" class="usa-button usa-button--accent-cool">Clear</button>
+          </div>
+        `;
+
+        fieldHtml += `</div>`;
+        return fieldHtml;
+      }
+
+      // Handle Table questions
+      if (q.type === 'tbl') {
+        let fieldHtml = `
+          <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
+        `;
+
+        // Add question label
+        fieldHtml += `
+          <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">
+            ${escapeHtml(q.question)}
+          </h3>
+        `;
+
+        // Add instructions if present (below the question)
+        if (q.instructions) {
+          fieldHtml += `
+            <div style="margin-bottom: 1.6rem;">
+              <p style="margin: 0 0 0.4rem 0; font-weight: 700; font-size: 1.6rem;">Instructions</p>
+              <p style="margin: 0; font-size: 1.6rem; color: #71767a;">${escapeHtml(q.instructions)}</p>
+            </div>
+          `;
+        }
+
+        // Container with background color
+        fieldHtml += `
+          <div style="background-color: #f3f6f8; border: 1px solid #dfe1e2; border-radius: 0.5rem; padding: 4rem;">
+        `;
+
+        // Icon key
+        fieldHtml += `
+          <div style="background-color: #fff; padding: 1.6rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+            <p style="font-weight: 700; margin: 0 0 1rem 0; font-size: 1.6rem;">Options and Control Types</p>
+            <div class="icon-key-grid">
+              <div class="icon-key-item">
+                <img src="assets/edit-icon.png" alt="" width="24" height="24">
+                <span>- Edit</span>
+              </div>
+              <div class="icon-key-item">
+                <img src="assets/icon-delete.png" alt="" width="24" height="24">
+                <span>- Delete</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Calculate column width percentage
+        const headerCount = q.headers.length;
+        const columnWidth = (100 / headerCount).toFixed(2);
+
+        // Build table
+        fieldHtml += `
+          <table class="usa-table usa-table--borderless" style="background-color: #fff; margin-bottom: 1.5rem;">
+            <thead>
+              <tr>
+        `;
+
+        // Add header columns
+        q.headers.forEach(header => {
+          fieldHtml += `
+                <th style="width: ${columnWidth}%;">${escapeHtml(header.title)}</th>
+          `;
+        });
+
+        fieldHtml += `
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="${headerCount}" style="text-align: center; padding: 2rem; color: #71767a;">No entries</td>
+              </tr>
+            </tbody>
+          </table>
+        `;
+
+        // Form inputs for adding rows (below the table)
+        q.headers.forEach((header, headerIndex) => {
+          const fieldId = `tbl-input-${index}-${headerIndex}`;
+          fieldHtml += `
+            <div class="usa-form-group" style="margin-bottom: 1.5rem;">
+              <label class="usa-label" for="${fieldId}">${escapeHtml(header.title)}</label>
+              <input class="usa-input" id="${fieldId}" name="${fieldId}" type="text" disabled aria-disabled="true">
+            </div>
+          `;
+        });
+
+        // Add buttons (disabled for preview)
+        fieldHtml += `
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button type="button" class="usa-button" disabled aria-disabled="true">Save & Add More</button>
+            <button type="button" class="usa-button" disabled aria-disabled="true">Save & Finish</button>
+          </div>
+        `;
+
+        // Close the background container
+        fieldHtml += `
+          </div>
+        `;
 
         fieldHtml += `</div>`;
         return fieldHtml;
