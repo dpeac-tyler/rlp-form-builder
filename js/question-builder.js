@@ -2773,12 +2773,16 @@
      * Parse a single Multi-Select line
      * Format: ms | question | y/n | choices(option1,option2,option3,...) | instructions
      */
+    /**
+     * Parse a Multi-Select line from Quick Builder
+     * Format: ms | question | y/n | choices(option1,option2,option3,...) | min/max(x/y) | instructions
+     */
     function parseMSLine(line, rowNumber) {
       const tokens = line.split("|").map(t => t.trim());
 
       // Check for too many fields
-      if (tokens.length > 5) {
-        return fail(rowNumber, "Too many fields for ms. Expected 5 or fewer.");
+      if (tokens.length > 6) {
+        return fail(rowNumber, "Too many fields for ms. Expected 6 or fewer.");
       }
 
       // Validate type
@@ -2836,8 +2840,48 @@
         return fail(rowNumber, "Multi-Select must include at least 2 choices.");
       }
 
+      // Parse min/max (optional, format: min/max(x/y))
+      let minSelections = null;
+      let maxSelections = null;
+      const minMaxRaw = tokens[4] || "";
+      if (minMaxRaw) {
+        const minMaxMatch = minMaxRaw.match(/^min\/max\((\d+)\/(\d+)\)$/i);
+        if (!minMaxMatch) {
+          return fail(rowNumber, "Min/max must use min/max(x/y).");
+        }
+
+        const minValue = minMaxMatch[1];
+        const maxValue = minMaxMatch[2];
+
+        const minNum = parseInt(minValue, 10);
+        const maxNum = parseInt(maxValue, 10);
+
+        if (isNaN(minNum) || isNaN(maxNum)) {
+          return fail(rowNumber, "Min/max values must be whole numbers.");
+        }
+
+        if (minNum < 0) {
+          return fail(rowNumber, "Minimum selections cannot be less than 0.");
+        }
+
+        if (maxNum < 1) {
+          return fail(rowNumber, "Maximum selections must be at least 1.");
+        }
+
+        if (minNum > maxNum) {
+          return fail(rowNumber, "Minimum selections cannot exceed maximum selections.");
+        }
+
+        if (maxNum > choices.length) {
+          return fail(rowNumber, "Maximum selections cannot exceed the number of choices.");
+        }
+
+        minSelections = minNum;
+        maxSelections = maxNum;
+      }
+
       // Instructions (optional, default to empty string)
-      const instructions = tokens[4] || "";
+      const instructions = tokens[5] || "";
 
       return {
         ok: true,
@@ -2846,6 +2890,8 @@
           question,
           required: required ? "y" : "n", // Convert boolean to internal format
           choices,
+          minSelections,
+          maxSelections,
           instructions,
           rowNumber
         }
@@ -2853,15 +2899,17 @@
     }
 
     /**
-     * Parse a single Address / Repeatable Fields line
-     * Format: addr | question | field1:y/n,field2:y/n,... | instructions
+     * Parse an Address / Repeatable Fields line from Quick Builder
+     * Format: addr | question | y/n | repeat(y/n) | instructions
+     *
+     * Maps to builder format with default field set for compatibility
      */
     function parseADDRLine(line, rowNumber) {
       const tokens = line.split("|").map(t => t.trim());
 
       // Check for too many fields
-      if (tokens.length > 4) {
-        return fail(rowNumber, "Too many fields for addr. Expected 4 or fewer.");
+      if (tokens.length > 5) {
+        return fail(rowNumber, "Too many fields for addr. Expected 5 or fewer.");
       }
 
       // Validate type
@@ -2876,57 +2924,59 @@
         return fail(rowNumber, "Question text is required for addr.");
       }
 
-      // Parse fields (format: fieldName:y/n,fieldName:y/n,...)
-      const fieldsRaw = tokens[2] || "";
-      if (!fieldsRaw) {
-        return fail(rowNumber, "At least one field is required for addr. Format: Business Name:y,First Name:n");
+      // Validate and normalize required field (defaults to false)
+      const requiredRaw = (tokens[2] || "").toLowerCase();
+      let required;
+      if (requiredRaw === "n" || requiredRaw === "no") {
+        required = false;
+      } else if (requiredRaw === "y" || requiredRaw === "yes") {
+        required = true;
+      } else if (requiredRaw === "") {
+        required = false; // Default to false
+      } else {
+        return fail(rowNumber, "Required must be y or n.");
       }
 
-      const fieldPairs = fieldsRaw.split(',').map(f => f.trim()).filter(f => f);
-      const fields = [];
-
-      for (const pair of fieldPairs) {
-        const parts = pair.split(':');
-        if (parts.length !== 2) {
-          return fail(rowNumber, `Invalid field format: "${pair}". Expected format: Field Name:y or Field Name:n`);
+      // Parse repeat (format: repeat(y) or repeat(n))
+      let repeatable = false;
+      const repeatRaw = tokens[3] || "";
+      if (repeatRaw) {
+        const repeatMatch = repeatRaw.match(/^repeat\((y|n)\)$/i);
+        if (!repeatMatch) {
+          return fail(rowNumber, "Repeat must use repeat(y) or repeat(n).");
         }
-
-        const fieldName = parts[0].trim();
-        const requiredRaw = parts[1].trim().toLowerCase();
-
-        if (!fieldName) {
-          return fail(rowNumber, "Field name cannot be empty.");
-        }
-
-        if (requiredRaw !== 'y' && requiredRaw !== 'n') {
-          return fail(rowNumber, `Field required must be y or n, got: "${requiredRaw}"`);
-        }
-
-        fields.push({
-          name: fieldName,
-          required: requiredRaw
-        });
-      }
-
-      if (fields.length === 0) {
-        return fail(rowNumber, "At least one field is required for addr.");
+        repeatable = repeatMatch[1].toLowerCase() === 'y';
       }
 
       // Instructions (optional, default to empty string)
-      const instructions = tokens[3] || "";
+      const instructions = tokens[4] || "";
 
-      // minFieldSets defaults to 0 (optional question)
-      const minFieldSets = "0";
+      // Compatibility layer: provide default field set for UI builder
+      // Quick Builder uses simplified syntax, so we map to standard address fields
+      const defaultFields = [
+        { name: 'First Name', required: 'n' },
+        { name: 'Last Name', required: 'n' },
+        { name: 'Address Line 1', required: 'n' },
+        { name: 'Address Line 2', required: 'n' },
+        { name: 'City/APO/DPO/FPO', required: 'n' },
+        { name: 'State', required: 'n' },
+        { name: 'Zip Code', required: 'n' }
+      ];
+
+      // Set minFieldSets based on whether question is required
+      // If required, at least 1 address set must be provided
+      const minFieldSets = required ? "1" : "0";
 
       return {
         ok: true,
         data: {
           type: "addr",
           question,
-          required: minFieldSets === '0' ? 'n' : 'y',
-          fields,
-          minFieldSets,
+          required: required ? "y" : "n", // Convert boolean to internal format
+          repeatable,
           instructions,
+          fields: defaultFields, // For UI builder compatibility
+          minFieldSets, // For UI builder compatibility
           rowNumber
         }
       };
@@ -3487,18 +3537,37 @@
           </h3>
         `;
 
-        // Render each selected field
-        q.fields.forEach((field, fieldIndex) => {
-          const fieldRequired = field.required === 'y';
+        // Show repeatable indicator if applicable
+        if (q.repeatable) {
+          fieldHtml += `
+            <p style="font-size: 1.4rem; color: #71767a; margin-bottom: 1.5rem;">
+              <em>This question allows multiple address entries.</em>
+            </p>
+          `;
+        }
+
+        // Render standard address fields (preview only)
+        const standardFields = [
+          'First Name',
+          'Last Name',
+          'Address Line 1',
+          'Address Line 2',
+          'City',
+          'State',
+          'ZIP Code'
+        ];
+
+        standardFields.forEach((fieldName, fieldIndex) => {
           const fieldId = `addr-field-${index}-${fieldIndex}`;
+          const fieldRequired = fieldName !== 'Address Line 2'; // Address Line 2 typically optional
 
           fieldHtml += `
             <div class="usa-form-group" style="margin-bottom: 1.5rem;">
               <label class="usa-label" for="${fieldId}">
-                ${escapeHtml(field.name)}
-                ${fieldRequired ? '<span class="field-required">Required</span>' : ''}
+                ${escapeHtml(fieldName)}
+                ${fieldRequired && isRequired ? '<span class="field-required">Required</span>' : ''}
               </label>
-              <input class="usa-input" id="${fieldId}" name="${fieldId}" type="text" ${fieldRequired ? 'required' : ''}>
+              <input class="usa-input" id="${fieldId}" name="${fieldId}" type="text" disabled aria-disabled="true">
             </div>
           `;
         });
@@ -3506,8 +3575,8 @@
         // Add buttons
         fieldHtml += `
           <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-            <button type="button" class="usa-button">Add</button>
-            <button type="button" class="usa-button usa-button--accent-cool">Clear</button>
+            <button type="button" class="usa-button" disabled aria-disabled="true">Add</button>
+            <button type="button" class="usa-button usa-button--accent-cool" disabled aria-disabled="true">Clear</button>
           </div>
         `;
 
@@ -3606,6 +3675,97 @@
             <button type="button" class="usa-button" disabled aria-disabled="true">Save & Add More</button>
             <button type="button" class="usa-button" disabled aria-disabled="true">Save & Finish</button>
           </div>
+        `;
+
+        // Close the background container
+        fieldHtml += `
+          </div>
+        `;
+
+        fieldHtml += `</div>`;
+        return fieldHtml;
+      }
+
+      // Handle Table (Row Labels) questions
+      if (q.type === 'tblr') {
+        let fieldHtml = `
+          <div style="${borderStyle} margin-bottom: 2rem; background-color: #fff;">
+        `;
+
+        // Add question label with subtle required indicator
+        fieldHtml += `
+          <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">
+            ${escapeHtml(q.question)}
+            ${isRequired ? '<span style="font-size: 1.4rem; font-weight: 400; color: #71767a; margin-left: 0.5rem;">(Required)</span>' : ''}
+          </h3>
+        `;
+
+        // Add instructions if present (below the question)
+        if (q.instructions) {
+          fieldHtml += `
+            <div style="margin-bottom: 1.6rem;">
+              <p style="margin: 0 0 0.4rem 0; font-weight: 700; font-size: 1.6rem;">Instructions</p>
+              <p style="margin: 0; font-size: 1.6rem; color: #71767a;">${escapeHtml(q.instructions)}</p>
+            </div>
+          `;
+        }
+
+        // Container with background color
+        fieldHtml += `
+          <div style="background-color: #f3f6f8; border: 1px solid #dfe1e2; border-radius: 0.5rem; padding: 4rem;">
+        `;
+
+        // Calculate column widths - varied based on column count for better readability
+        const firstColumnWidth = 20; // Row labels column
+        const remainingWidth = 100 - firstColumnWidth;
+        const dataColumnWidth = (remainingWidth / q.columnHeaders.length).toFixed(2);
+
+        // Build table with improved borders
+        fieldHtml += `
+          <table class="usa-table" style="background-color: #fff; border: 2px solid #565c65; border-collapse: collapse;">
+            <thead>
+              <tr style="background-color: #e7f2f5;">
+                <th style="width: ${firstColumnWidth}%; background-color: #e7f2f5; border: 1px solid #a9aeb1; padding: 1.2rem; font-weight: 700;"></th>
+        `;
+
+        // Add column headers
+        q.columnHeaders.forEach(header => {
+          fieldHtml += `
+                <th style="width: ${dataColumnWidth}%; border: 1px solid #a9aeb1; padding: 1.2rem; font-weight: 700; text-align: left;">${escapeHtml(header.title)}</th>
+          `;
+        });
+
+        fieldHtml += `
+              </tr>
+            </thead>
+            <tbody>
+        `;
+
+        // Add rows with labels and input fields
+        q.rowLabels.forEach((row, rowIndex) => {
+          fieldHtml += `
+              <tr>
+                <td style="background-color: #f0f0f0; font-weight: 600; border: 1px solid #a9aeb1; padding: 1.2rem;">${escapeHtml(row.label)}</td>
+          `;
+
+          // Add input field for each column
+          q.columnHeaders.forEach((header, colIndex) => {
+            const fieldId = `tblr-${index}-row${rowIndex}-col${colIndex}`;
+            fieldHtml += `
+                <td style="border: 1px solid #a9aeb1; padding: 0.8rem;">
+                  <input class="usa-input" id="${fieldId}" name="${fieldId}" type="text" disabled aria-disabled="true" style="margin: 0; width: 85%;">
+                </td>
+            `;
+          });
+
+          fieldHtml += `
+              </tr>
+          `;
+        });
+
+        fieldHtml += `
+            </tbody>
+          </table>
         `;
 
         // Close the background container
