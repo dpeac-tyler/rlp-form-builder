@@ -201,8 +201,8 @@
 
                         <div style="margin-bottom: 2rem;">
                           <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Addresses / Repeatable Fields</h4>
-                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">addr | question | Business Name:y,First Name:y,Last Name:n | instructions</code>
-                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">Fields format: FieldName:y (required) or FieldName:n (optional). Separate multiple fields with commas.</p>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">addr | question | y/n | repeat(y/n) | instructions</code>
+                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">repeat(y) allows multiple addresses, repeat(n) for single address. Repeat field is optional, defaults to repeat(n).</p>
                         </div>
 
                         <div style="margin-bottom: 2rem;">
@@ -228,8 +228,8 @@
                       <div>
                         <div style="margin-bottom: 2rem;">
                           <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Multi-Select</h4>
-                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">ms | question | y/n | choices(a,b,c,...) | instructions</code>
-                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">Multiple checkboxes. Users can select one or more options.</p>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">ms | question | y/n | choices(a,b,c,...) | min/max(x/y) | instructions</code>
+                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">Multiple checkboxes. Min/max field is optional (e.g., min/max(1/3) requires 1-3 selections). Minimum 2 choices required.</p>
                         </div>
 
                         <div style="margin-bottom: 2rem;">
@@ -240,7 +240,8 @@
 
                         <div style="margin-bottom: 2rem;">
                           <h4 style="font-weight: 700; font-size: 1.8rem; margin-bottom: 0.8rem;">Table (Row Labels)</h4>
-                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">tblr | question | y/n | rows(a,b,c,...) | columns(x,y,...) | instructions</code>
+                          <code style="display: block; background-color: #f0f0f0; padding: 0.8rem; border-radius: 0.3rem; font-size: 1.4rem;">tblr | question | y/n | rows(Label1,Label2,Label3) | columns(Header2,Header3) | instructions</code>
+                          <p style="margin-top: 0.5rem; font-size: 1.3rem; color: #71767a;">Structured data-entry grid. Row labels are agency-defined (first column), columns are input fields. Minimum 1 row label and 1 column required.</p>
                         </div>
 
                         <div style="margin-bottom: 2rem;">
