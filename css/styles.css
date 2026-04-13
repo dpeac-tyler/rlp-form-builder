@@ -513,6 +513,14 @@ fieldset.margin-bottom-4  {
   text-decoration: none;
 }
 
+.usa-button:disabled,
+.usa-button[aria-disabled="true"] {
+  color: #454545;
+  background-color: #c9c9c9;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 .usa-button--unstyled {
   background-color: transparent;
   border: 0;
@@ -2384,6 +2392,21 @@ select:focus {
   justify-content: flex-start;
 }
 
+/* Small Section Triangle Indicator (for Table Headers)
+   ========================================================================== */
+
+.section-indicator--small::before {
+  border-width: 47px 47px 0 0;
+}
+
+.section-indicator--small::after {
+  top: 7px;
+  left: 10px;
+  font-size: 1.5rem;
+  width: 20px;
+  height: 20px;
+}
+
 .section-indicator .usa-legend {
   font-size: 2rem;
   font-weight: 700;
@@ -2627,4 +2650,50 @@ select:focus {
 
 .mock-editor__textarea:focus {
   outline: none;
+}
+
+/* Multiple Choice Delete Button
+   ========================================================================== */
+
+.mc-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.mc-delete-btn:hover {
+  opacity: 0.7;
+}
+
+.mc-delete-btn:focus {
+  outline: 2px solid #2491ff;
+  outline-offset: 2px;
+}
+
+/* Table Header Delete Button
+   ========================================================================== */
+
+.tbl-delete-header-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.tbl-delete-header-btn:hover {
+  opacity: 0.7;
+}
+
+.tbl-delete-header-btn:focus {
+  outline: 2px solid #2491ff;
+  outline-offset: 2px;
 }
