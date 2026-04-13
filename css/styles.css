@@ -2675,6 +2675,29 @@ select:focus {
   outline-offset: 2px;
 }
 
+/* Multi-Select Delete Button
+   ========================================================================== */
+
+.ms-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.ms-delete-btn:hover {
+  opacity: 0.7;
+}
+
+.ms-delete-btn:focus {
+  outline: 2px solid #2491ff;
+  outline-offset: 2px;
+}
+
 /* Table Header Delete Button
    ========================================================================== */
 
@@ -2687,6 +2710,61 @@ select:focus {
   align-items: center;
   justify-content: center;
   transition: opacity 0.2s ease;
+}
+
+.tbl-delete-header-btn:hover {
+  opacity: 0.7;
+}
+
+.tbl-delete-header-btn:focus {
+  outline: 2px solid #2491ff;
+  outline-offset: 2px;
+}
+
+/* Table (Row Labels) Delete Row Button
+   ========================================================================== */
+
+.tblr-delete-row-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.tblr-delete-row-btn:hover {
+  opacity: 0.7;
+}
+
+.tblr-delete-row-btn:focus {
+  outline: 2px solid #2491ff;
+  outline-offset: 2px;
+}
+
+/* Table (Row Labels) Delete Header Button
+   ========================================================================== */
+
+.tblr-delete-header-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.tblr-delete-header-btn:hover {
+  opacity: 0.7;
+}
+
+.tblr-delete-header-btn:focus {
+  outline: 2px solid #2491ff;
+  outline-offset: 2px;
 }
 
 .tbl-delete-header-btn:hover {
