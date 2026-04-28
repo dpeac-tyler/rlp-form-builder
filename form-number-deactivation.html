@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Question Builder - RLP</title>
+  <title>Form Number, Deactivation Date & Search Terms - RLP</title>
   <!-- Custom RLP Styles -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -76,14 +76,14 @@
     <main id="main-content" class="grid-container">
       <div class="usa-step-indicator margin-top-4" aria-label="progress">
         <ol class="usa-step-indicator__segments">
-          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
             <a class="usa-step-indicator__segment-label" href="document-upload.html">Application Details</a>
           </li>
-          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+          <li class="usa-step-indicator__segment">
             <a class="usa-step-indicator__segment-label" href="user-information.html">Applicant Information</a>
           </li>
-          <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
-            <span class="usa-step-indicator__segment-label">Question Builder</span>
+          <li class="usa-step-indicator__segment">
+            <a class="usa-step-indicator__segment-label" href="question-builder.html">Question Builder</a>
           </li>
           <li class="usa-step-indicator__segment">
             <span class="usa-step-indicator__segment-label">Conditions</span>
@@ -105,27 +105,31 @@
 
       <div class="usa-step-indicator__header">
         <h1 class="usa-step-indicator__heading">
-          <span class="usa-step-indicator__heading-counter">3</span>
+          <span class="usa-step-indicator__heading-counter">1</span>
           <span class="usa-step-indicator__total-steps">of 8</span>
-          <span class="usa-step-indicator__heading-text">Question Builder</span>
+          <span class="usa-step-indicator__heading-text">Application Details</span>
         </h1>
       </div>
 
       <div class="margin-top-4 app-builder-container">
-        <!-- Left sidebar - Step indicators -->
+        <!-- Left sidebar -->
         <div class="app-builder-sidebar">
           <div class="usa-step-indicator usa-step-indicator--sidebar" aria-label="step progress">
             <ol class="usa-step-indicator__segments">
+              <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+                <a class="usa-step-indicator__segment-label" href="start-application.html">Getting Started</a>
+              </li>
+              <div class="step-connector-line"></div>
+              <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+                <a class="usa-step-indicator__segment-label" href="application-type.html">Application Type</a>
+              </li>
+              <div class="step-connector-line"></div>
+              <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+                <a class="usa-step-indicator__segment-label" href="title-information.html">Title Information</a>
+              </li>
+              <div class="step-connector-line"></div>
               <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
-                <span class="usa-step-indicator__segment-label">Question Builder</span>
-              </li>
-              <div class="step-connector-line"></div>
-              <li class="usa-step-indicator__segment" style="cursor: pointer;" onclick="window.location.href='create-questions.html'">
-                <span class="usa-step-indicator__segment-label">Create Questions</span>
-              </li>
-              <div class="step-connector-line"></div>
-              <li class="usa-step-indicator__segment">
-                <span class="usa-step-indicator__segment-label">Review Questions</span>
+                <a class="usa-step-indicator__segment-label" href="form-number-deactivation.html">Form No., Deactivation & Search Terms</a>
               </li>
             </ol>
           </div>
@@ -133,64 +137,84 @@
 
         <!-- Right content area -->
         <div class="app-builder-content">
-          <h1 class="app-builder-content__heading">Question Builder</h1>
+          <h1 class="app-builder-content__heading">Form Number, Deactivation Date &amp; Search Terms</h1>
 
-          <p>You're making great progress! Two sections of your application are complete and we've saved what you're
-            done with so far. Remember, Draft applications are always available in the Draft area of your dashboard.</p>
+          <p class="app-builder-content__text">
+            For this step, you can provide an application a number. In most situations, this is the same number as that
+            used on a paper form. This field is optional. You can also continue building the application and add an
+            application number later. Once the application goes live, you can no longer edit this number.
+          </p>
 
-          <p>Now let's get started with the Questions Builder. In this section, you will choose from 9 different types
-            of questions to gather necessary information from the user.</p>
+          <p class="app-builder-content__text app-builder-content__text--lg-margin">
+            "Application Deactivation Date" is the last date that you want this application to be available online.
+            This date must be greater than or equal to the current date and the application go-live date.
+          </p>
 
-          <p><strong>NOTE:</strong> If you don't need to include questions in your application, click
-            <strong>Skip</strong> to move to the next section.</p>
-
-          <h2 class="app-builder-content__heading">Question Types</h2>
-
-          <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-              <h3>Acknowledgement <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Addresses/Repeatable Fields <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Date/Date Range <span class="tooltip-icon">?</span></h3>
+          <!-- Section 7: Form Number -->
+          <div class="section-indicator" data-section="7">
+            <h2 class="app-builder-content__subheading" style="font-size: 2.2rem;">Type the Form Number in the field below.</h2>
+            <div class="margin-bottom-2">
+              <label class="usa-label" for="form-number">Form Number</label>
+              <input class="usa-input" id="form-number" name="form-number" type="text">
             </div>
           </div>
 
-          <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-              <h3>Free-Form <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Multi-Select <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Multiple Choice <span class="tooltip-icon">?</span></h3>
-            </div>
-          </div>
-
-          <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-              <h3>Table <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Table (Row Labels) <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Yes/No; Either/Or <span class="tooltip-icon">?</span></h3>
+          <!-- Section 8: Deactivation Date -->
+          <div class="section-indicator" data-section="8">
+            <h2 class="app-builder-content__subheading" style="font-size: 2.2rem;">Application Deactivation Date</h2>
+            <div class="margin-bottom-2">
+              <label class="usa-label" for="end-date">End Date</label>
+              <div class="date-picker-wrapper">
+                <input class="usa-input" id="end-date" name="end-date" type="text" placeholder="MM/DD/YYYY">
+                <button type="button" class="date-picker-button" aria-label="Select date">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div class="app-builder-button-container" style="justify-content: flex-end;">
-            <button type="button" class="usa-button" style="margin-left: 10px;">Skip</button>
-            <a href="create-questions.html"><button type="button" class="usa-button">Next</button></a>
+          <!-- Section 9: Search Terms / Keywords -->
+          <div class="section-indicator" data-section="9">
+            <h2 class="app-builder-content__subheading" style="font-size: 2.2rem;">Type in the search terms that users can use to search for this application on the internet.</h2>
+            <p class="app-builder-content__text">Type a comma-delimited set of search terms that citizen users may use to search for this application on the internet. Search terms may be single or multiple words.</p>
+            <div class="margin-bottom-2">
+              <label class="usa-label" for="keywords">Keywords</label>
+              <textarea class="usa-textarea" id="keywords" name="keywords" rows="4" maxlength="1000"></textarea>
+              <div style="font-size: 1.3rem; color: #71767a; text-align: right; margin-top: 0.3rem;">
+                <span id="keywords-count">0</span>/1000
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 10: Portal Landing Page -->
+          <div class="section-indicator" data-section="10">
+            <div class="usa-checkbox">
+              <input class="usa-checkbox__input" id="show-on-portal" type="checkbox" name="show-on-portal" value="yes">
+              <label class="usa-checkbox__label" for="show-on-portal">Show on Portal Landing Page</label>
+            </div>
+          </div>
+
+          <div class="app-builder-button-container">
+            <a href="title-information.html" class="usa-button usa-button--outline">Back</a>
+            <a href="task-management.html" class="usa-button">Next</a>
           </div>
         </div>
       </div>
 
     </main>
   </div>
+  <script>
+    var keywords = document.getElementById('keywords');
+    var counter = document.getElementById('keywords-count');
+    keywords.addEventListener('input', function() {
+      counter.textContent = keywords.value.length;
+    });
+  </script>
 </body>
 
 </html>

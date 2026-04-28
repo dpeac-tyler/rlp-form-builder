@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Question Builder - RLP</title>
+  <title>External Integration - RLP</title>
   <!-- Custom RLP Styles -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -76,13 +76,13 @@
     <main id="main-content" class="grid-container">
       <div class="usa-step-indicator margin-top-4" aria-label="progress">
         <ol class="usa-step-indicator__segments">
-          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
-            <a class="usa-step-indicator__segment-label" href="document-upload.html">Application Details</a>
-          </li>
-          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
-            <a class="usa-step-indicator__segment-label" href="user-information.html">Applicant Information</a>
-          </li>
           <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
+            <span class="usa-step-indicator__segment-label">Application Details</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Applicant Information</span>
+          </li>
+          <li class="usa-step-indicator__segment">
             <span class="usa-step-indicator__segment-label">Question Builder</span>
           </li>
           <li class="usa-step-indicator__segment">
@@ -105,27 +105,31 @@
 
       <div class="usa-step-indicator__header">
         <h1 class="usa-step-indicator__heading">
-          <span class="usa-step-indicator__heading-counter">3</span>
+          <span class="usa-step-indicator__heading-counter">1</span>
           <span class="usa-step-indicator__total-steps">of 8</span>
-          <span class="usa-step-indicator__heading-text">Question Builder</span>
+          <span class="usa-step-indicator__heading-text">Application Details</span>
         </h1>
       </div>
 
       <div class="margin-top-4 app-builder-container">
-        <!-- Left sidebar - Step indicators -->
+        <!-- Left sidebar -->
         <div class="app-builder-sidebar">
           <div class="usa-step-indicator usa-step-indicator--sidebar" aria-label="step progress">
             <ol class="usa-step-indicator__segments">
+              <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+                <span class="usa-step-indicator__segment-label">Getting Started</span>
+              </li>
+              <div class="step-connector-line"></div>
+              <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+                <span class="usa-step-indicator__segment-label">Application Type</span>
+              </li>
+              <div class="step-connector-line"></div>
+              <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+                <span class="usa-step-indicator__segment-label">Title Information</span>
+              </li>
+              <div class="step-connector-line"></div>
               <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
-                <span class="usa-step-indicator__segment-label">Question Builder</span>
-              </li>
-              <div class="step-connector-line"></div>
-              <li class="usa-step-indicator__segment" style="cursor: pointer;" onclick="window.location.href='create-questions.html'">
-                <span class="usa-step-indicator__segment-label">Create Questions</span>
-              </li>
-              <div class="step-connector-line"></div>
-              <li class="usa-step-indicator__segment">
-                <span class="usa-step-indicator__segment-label">Review Questions</span>
+                <span class="usa-step-indicator__segment-label">Form No., Deactivation & Search Terms</span>
               </li>
             </ol>
           </div>
@@ -133,58 +137,37 @@
 
         <!-- Right content area -->
         <div class="app-builder-content">
-          <h1 class="app-builder-content__heading">Question Builder</h1>
+          <h1 class="app-builder-content__heading">External Integration</h1>
 
-          <p>You're making great progress! Two sections of your application are complete and we've saved what you're
-            done with so far. Remember, Draft applications are always available in the Draft area of your dashboard.</p>
+          <p class="app-builder-content__text">
+            This is where you select to have Child Support lookup as part of the application review process. If chosen,
+            then the constituent would be asked to provide some information to allow for the lookup to be completed. If
+            the lookup is not required, then select No and click Next to proceed to the next section.
+          </p>
 
-          <p>Now let's get started with the Questions Builder. In this section, you will choose from 9 different types
-            of questions to gather necessary information from the user.</p>
+          <p class="app-builder-content__text app-builder-content__text--lg-margin">
+            <strong>NOTE:</strong> If you select to perform this lookup, then you must provide a statement to the
+            constituent, completing the application, to explain why the lookup is needed.
+          </p>
 
-          <p><strong>NOTE:</strong> If you don't need to include questions in your application, click
-            <strong>Skip</strong> to move to the next section.</p>
-
-          <h2 class="app-builder-content__heading">Question Types</h2>
-
-          <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-              <h3>Acknowledgement <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Addresses/Repeatable Fields <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Date/Date Range <span class="tooltip-icon">?</span></h3>
-            </div>
+          <!-- Section 12: Child Support Verification -->
+          <div class="section-indicator" data-section="12">
+            <fieldset class="usa-fieldset">
+              <legend class="usa-label">Will this application require a Child Support Payment Verification? <span class="field-required">Required</span></legend>
+              <div class="usa-radio">
+                <input class="usa-radio__input" id="child-support-yes" type="radio" name="child-support" value="yes">
+                <label class="usa-radio__label" for="child-support-yes">Yes</label>
+              </div>
+              <div class="usa-radio">
+                <input class="usa-radio__input" id="child-support-no" type="radio" name="child-support" value="no">
+                <label class="usa-radio__label" for="child-support-no">No</label>
+              </div>
+            </fieldset>
           </div>
 
-          <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-              <h3>Free-Form <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Multi-Select <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Multiple Choice <span class="tooltip-icon">?</span></h3>
-            </div>
-          </div>
-
-          <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-              <h3>Table <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Table (Row Labels) <span class="tooltip-icon">?</span></h3>
-            </div>
-            <div class="tablet:grid-col-4">
-              <h3>Yes/No; Either/Or <span class="tooltip-icon">?</span></h3>
-            </div>
-          </div>
-
-          <div class="app-builder-button-container" style="justify-content: flex-end;">
-            <button type="button" class="usa-button" style="margin-left: 10px;">Skip</button>
-            <a href="create-questions.html"><button type="button" class="usa-button">Next</button></a>
+          <div class="app-builder-button-container">
+            <a href="task-management.html" class="usa-button usa-button--outline">Back</a>
+            <a href="document-upload.html" class="usa-button">Next</a>
           </div>
         </div>
       </div>
